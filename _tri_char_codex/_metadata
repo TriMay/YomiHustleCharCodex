@@ -1,0 +1,13 @@
+{
+  "author": "TriMay: Kitty the Cat",
+  "client_side": true,
+  "description": "Documentation for mod devs: https://hustledocs.trimaydev.com/#/codex_mod/how_to_use",
+  "friendly_name": "Character Codex Library",
+  "id": "does_this_do_anything",
+  "link": "",
+  "name": "tri_char_codex",
+  "overwrites": false,
+  "priority": -9,
+  "requires": [],
+  "version": "1.9.20.h - Character Options Update 2.1"
+}

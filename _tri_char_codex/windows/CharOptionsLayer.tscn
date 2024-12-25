@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ui/Window/Window.tscn" type="PackedScene" id=1]
+[ext_resource path="res://_tri_char_codex/windows/CharOptionsLayer.gd" type="Script" id=2]
+
+[node name="CharOptionsLayer" type="CanvasLayer"]
+layer = 5
+script = ExtResource( 2 )
+
+[node name="Window" parent="." instance=ExtResource( 1 )]
+margin_left = -150.0
+margin_top = -65.0
+margin_right = 150.0
+margin_bottom = 173.0
+
+[node name="VBoxContainer" parent="Window" index="0"]
+margin_right = 299.0
+margin_bottom = 237.0
+
+[node name="TitleBar" parent="Window/VBoxContainer" index="0"]
+margin_right = 298.0
+
+[node name="Title" parent="Window/VBoxContainer/TitleBar" index="0"]
+text = "Character Options"
+clip_text = true
+
+[node name="Contents" parent="Window/VBoxContainer" index="1"]
+margin_right = 298.0
+margin_bottom = 236.0
+
+[editable path="Window"]

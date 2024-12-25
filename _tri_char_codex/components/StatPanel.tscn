@@ -1,0 +1,110 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://theme.tres" type="Theme" id=1]
+[ext_resource path="res://_tri_char_codex/components/DirCircle.gd" type="Script" id=2]
+[ext_resource path="res://_tri_char_codex/components/StatPanel.gd" type="Script" id=3]
+[ext_resource path="res://_tri_char_codex/codex_theme.tres" type="Theme" id=4]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 2.0
+content_margin_right = 2.0
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+bg_color = Color( 1, 1, 1, 0.12549 )
+border_color = Color( 1, 1, 1, 0.25098 )
+
+[node name="Control" type="PanelContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -594.0
+margin_bottom = -322.0
+rect_min_size = Vector2( 40, 32 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 44.0
+margin_bottom = 46.0
+theme = ExtResource( 4 )
+custom_constants/separation = 0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+margin_right = 42.0
+margin_bottom = 11.0
+mouse_filter = 0
+text = "Damage"
+align = 1
+
+[node name="MainRow" type="HBoxContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+margin_top = 11.0
+margin_right = 42.0
+margin_bottom = 22.0
+size_flags_horizontal = 5
+size_flags_vertical = 6
+custom_constants/separation = 0
+
+[node name="Value" type="Label" parent="VBoxContainer/MainRow"]
+unique_name_in_owner = true
+margin_left = 12.0
+margin_right = 30.0
+margin_bottom = 11.0
+mouse_filter = 0
+size_flags_horizontal = 6
+size_flags_vertical = 6
+text = "999"
+align = 1
+
+[node name="DirContainer" type="Control" parent="VBoxContainer/MainRow"]
+unique_name_in_owner = true
+visible = false
+margin_left = 21.0
+margin_right = 41.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="Dir" type="Node2D" parent="VBoxContainer/MainRow/DirContainer"]
+unique_name_in_owner = true
+position = Vector2( 10, 10 )
+script = ExtResource( 2 )
+
+[node name="ValueList" type="HBoxContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+margin_left = 21.0
+margin_top = 28.0
+margin_right = 21.0
+margin_bottom = 28.0
+size_flags_horizontal = 4
+size_flags_vertical = 6
+custom_constants/separation = 8
+
+[node name="MoreValue" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+margin_top = 22.0
+margin_right = 42.0
+margin_bottom = 33.0
+mouse_filter = 0
+size_flags_vertical = 6
+custom_colors/font_color = Color( 0.501961, 0.501961, 0.752941, 1 )
+text = "999"
+align = 1
+
+[node name="MinValue" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+margin_top = 33.0
+margin_right = 42.0
+margin_bottom = 44.0
+mouse_filter = 0
+size_flags_vertical = 6
+custom_colors/font_color = Color( 0.501961, 0.501961, 0.501961, 1 )
+text = "999"
+align = 1

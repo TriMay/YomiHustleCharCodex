@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://theme.tres" type="Theme" id=1]
+[ext_resource path="res://_tri_char_codex/components/CharSelectOptionsPrompt.gd" type="Script" id=2]
+
+[node name="CharSelectOptionsPrompt" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="OptionsButton" type="Button" parent="."]
+anchor_right = 1.0
+anchor_bottom = 0.5
+custom_colors/font_color_disabled = Color( 0.501961, 0.501961, 0.501961, 1 )
+custom_colors/font_color = Color( 0, 0.501961, 1, 1 )
+text = "Options..."
+clip_text = true
+
+[node name="PlayButton" type="Button" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_colors/font_color = Color( 0, 0.752941, 0, 1 )
+text = "Play!"
+clip_text = true

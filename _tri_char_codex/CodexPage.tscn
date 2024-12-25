@@ -1,0 +1,931 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://theme.tres" type="Theme" id=1]
+[ext_resource path="res://characters/stickman/sprites/idle.png" type="Texture" id=2]
+[ext_resource path="res://_tri_char_codex/codex_theme.tres" type="Theme" id=3]
+[ext_resource path="res://_tri_char_codex/CodexPage.gd" type="Script" id=4]
+[ext_resource path="res://_tri_char_codex/FreeCancelDispay.gd" type="Script" id=5]
+[ext_resource path="res://_tri_char_codex/components/Rectangle.gd" type="Script" id=6]
+[ext_resource path="res://_tri_char_codex/images/achievement_locked.png" type="Texture" id=7]
+[ext_resource path="res://_tri_char_codex/components/AchievementProgressBar.gd" type="Script" id=8]
+[ext_resource path="res://ui/HUD/feint.png" type="Texture" id=9]
+[ext_resource path="res://ui/HUD/air_movement.png" type="Texture" id=10]
+[ext_resource path="res://ui/airoptionbar.png" type="Texture" id=11]
+
+[sub_resource type="ButtonGroup" id=1]
+
+[sub_resource type="ButtonGroup" id=2]
+
+[sub_resource type="ButtonGroup" id=4]
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 1, 1, 0, 0.25 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 1, 1, 0, 0.5 )
+
+[node name="CodexPage" type="MarginContainer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -150.0
+margin_top = -160.0
+margin_right = 150.0
+margin_bottom = 160.0
+rect_clip_content = true
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+custom_constants/margin_right = 0
+custom_constants/margin_top = 0
+custom_constants/margin_left = 0
+custom_constants/margin_bottom = 0
+script = ExtResource( 4 )
+
+[node name="BGColor" type="Panel" parent="."]
+margin_right = 300.0
+margin_bottom = 320.0
+
+[node name="Margins" type="MarginContainer" parent="."]
+margin_right = 300.0
+margin_bottom = 320.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 3 )
+custom_constants/margin_right = 5
+custom_constants/margin_top = 0
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margins"]
+margin_left = 5.0
+margin_right = 295.0
+margin_bottom = 320.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+
+[node name="BannerMargin" type="MarginContainer" parent="Margins/VBoxContainer"]
+margin_right = 290.0
+margin_bottom = 64.0
+custom_constants/margin_right = -5
+custom_constants/margin_left = -5
+
+[node name="BannerSection" type="Control" parent="Margins/VBoxContainer/BannerMargin"]
+margin_left = -5.0
+margin_right = 295.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 0, 64 )
+size_flags_horizontal = 3
+
+[node name="Banner" type="TextureRect" parent="Margins/VBoxContainer/BannerMargin/BannerSection"]
+unique_name_in_owner = true
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 32.0
+margin_bottom = 32.0
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 4
+
+[node name="Title" type="RichTextLabel" parent="Margins/VBoxContainer/BannerMargin/BannerSection"]
+unique_name_in_owner = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 64.0
+margin_top = 4.0
+margin_right = -118.0
+margin_bottom = -48.0
+rect_scale = Vector2( 2, 2 )
+text = "Character Name"
+scroll_active = false
+
+[node name="Subtitle" type="RichTextLabel" parent="Margins/VBoxContainer/BannerMargin/BannerSection"]
+unique_name_in_owner = true
+margin_left = 77.0
+margin_top = 26.0
+margin_right = 294.0
+margin_bottom = 38.0
+rect_clip_content = false
+text = "The Title"
+fit_content_height = true
+scroll_active = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margins/VBoxContainer/BannerMargin/BannerSection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -47.0
+margin_top = -24.0
+margin_right = -5.0
+margin_bottom = -5.0
+grow_horizontal = 0
+grow_vertical = 0
+custom_constants/separation = 2
+alignment = 2
+
+[node name="OptionsButton" type="Button" parent="Margins/VBoxContainer/BannerMargin/BannerSection/HBoxContainer"]
+unique_name_in_owner = true
+visible = false
+margin_right = 44.0
+margin_bottom = 19.0
+grow_horizontal = 0
+rect_min_size = Vector2( 40, 19 )
+hint_tooltip = "Options"
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+group = SubResource( 1 )
+text = " Options "
+align = 2
+
+[node name="TextureGear" type="TextureRect" parent="Margins/VBoxContainer/BannerMargin/BannerSection/HBoxContainer/OptionsButton"]
+unique_name_in_owner = true
+visible = false
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -18.0
+margin_top = -11.5
+margin_right = 2.0
+margin_bottom = 8.5
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 4
+
+[node name="AchievementsButton" type="Button" parent="Margins/VBoxContainer/BannerMargin/BannerSection/HBoxContainer"]
+unique_name_in_owner = true
+margin_right = 44.0
+margin_bottom = 19.0
+grow_horizontal = 0
+rect_min_size = Vector2( 44, 19 )
+hint_tooltip = "Achievements"
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+group = SubResource( 1 )
+text = "0/0       "
+align = 2
+
+[node name="TextureStar" type="TextureRect" parent="Margins/VBoxContainer/BannerMargin/BannerSection/HBoxContainer/AchievementsButton"]
+unique_name_in_owner = true
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -18.0
+margin_top = -11.5
+margin_right = 2.0
+margin_bottom = 8.5
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 4
+
+[node name="TabScroll" type="ScrollContainer" parent="Margins/VBoxContainer"]
+margin_top = 64.0
+margin_right = 290.0
+margin_bottom = 84.0
+scroll_vertical_enabled = false
+
+[node name="TabContainer" type="HBoxContainer" parent="Margins/VBoxContainer/TabScroll"]
+unique_name_in_owner = true
+margin_right = 290.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
+size_flags_horizontal = 3
+custom_constants/separation = 2
+
+[node name="SummaryButton" type="Button" parent="Margins/VBoxContainer/TabScroll/TabContainer"]
+unique_name_in_owner = true
+visible = false
+margin_right = 143.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+group = SubResource( 1 )
+text = "Summary"
+
+[node name="MoveListButton" type="Button" parent="Margins/VBoxContainer/TabScroll/TabContainer"]
+unique_name_in_owner = true
+margin_right = 144.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+group = SubResource( 1 )
+text = "Move List"
+
+[node name="StatsButton" type="Button" parent="Margins/VBoxContainer/TabScroll/TabContainer"]
+unique_name_in_owner = true
+margin_left = 146.0
+margin_right = 290.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+group = SubResource( 1 )
+text = "Stats"
+
+[node name="Seperator2" type="ColorRect" parent="Margins/VBoxContainer"]
+margin_top = 84.0
+margin_right = 290.0
+margin_bottom = 85.0
+rect_min_size = Vector2( 1, 1 )
+color = Color( 1, 1, 1, 0.25098 )
+
+[node name="ContentScroll" type="ScrollContainer" parent="Margins/VBoxContainer"]
+margin_top = 85.0
+margin_right = 290.0
+margin_bottom = 320.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="Content" type="MarginContainer" parent="Margins/VBoxContainer/ContentScroll"]
+unique_name_in_owner = true
+margin_right = 290.0
+margin_bottom = 235.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 0
+custom_constants/margin_top = 5
+custom_constants/margin_left = 0
+custom_constants/margin_bottom = 0
+
+[node name="TabSummary" type="MarginContainer" parent="Margins/VBoxContainer/ContentScroll/Content"]
+unique_name_in_owner = true
+visible = false
+margin_top = 5.0
+margin_right = 290.0
+margin_bottom = 235.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 0
+custom_constants/margin_top = 0
+custom_constants/margin_left = 0
+custom_constants/margin_bottom = 0
+
+[node name="Summary" type="RichTextLabel" parent="Margins/VBoxContainer/ContentScroll/Content/TabSummary"]
+unique_name_in_owner = true
+margin_right = 290.0
+margin_bottom = 230.0
+bbcode_enabled = true
+fit_content_height = true
+
+[node name="TabMoveList" type="VBoxContainer" parent="Margins/VBoxContainer/ContentScroll/Content"]
+unique_name_in_owner = true
+visible = false
+margin_top = 5.0
+margin_right = 290.0
+margin_bottom = 235.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Modifiers" type="HBoxContainer" parent="Margins/VBoxContainer/ContentScroll/Content/TabMoveList"]
+margin_right = 290.0
+margin_bottom = 12.0
+
+[node name="Label" type="Label" parent="Margins/VBoxContainer/ContentScroll/Content/TabMoveList/Modifiers"]
+margin_bottom = 11.0
+
+[node name="StanceOption" type="OptionButton" parent="Margins/VBoxContainer/ContentScroll/Content/TabMoveList/Modifiers"]
+unique_name_in_owner = true
+margin_left = 1.0
+margin_right = 186.0
+margin_bottom = 12.0
+size_flags_horizontal = 3
+clip_text = true
+
+[node name="Gap" type="Control" parent="Margins/VBoxContainer/ContentScroll/Content/TabMoveList/Modifiers"]
+margin_left = 187.0
+margin_right = 219.0
+margin_bottom = 12.0
+rect_min_size = Vector2( 32, 0 )
+
+[node name="MoreInfoButton" type="CheckButton" parent="Margins/VBoxContainer/ContentScroll/Content/TabMoveList/Modifiers"]
+unique_name_in_owner = true
+margin_left = 220.0
+margin_right = 290.0
+margin_bottom = 12.0
+text = "More Info"
+
+[node name="Seperator2" type="ColorRect" parent="Margins/VBoxContainer/ContentScroll/Content/TabMoveList"]
+margin_top = 13.0
+margin_right = 290.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 1, 1 )
+color = Color( 1, 1, 1, 0.25098 )
+
+[node name="Types" type="HBoxContainer" parent="Margins/VBoxContainer/ContentScroll/Content/TabMoveList"]
+unique_name_in_owner = true
+margin_top = 15.0
+margin_right = 290.0
+margin_bottom = 27.0
+
+[node name="Movement" type="Button" parent="Margins/VBoxContainer/ContentScroll/Content/TabMoveList/Types"]
+margin_right = 57.0
+margin_bottom = 12.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+group = SubResource( 2 )
+text = "Movement"
+clip_text = true
+
+[node name="Attack" type="Button" parent="Margins/VBoxContainer/ContentScroll/Content/TabMoveList/Types"]
+margin_left = 58.0
+margin_right = 115.0
+margin_bottom = 12.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+group = SubResource( 2 )
+text = "Attack"
+clip_text = true
+
+[node name="Special" type="Button" parent="Margins/VBoxContainer/ContentScroll/Content/TabMoveList/Types"]
+margin_left = 116.0
+margin_right = 173.0
+margin_bottom = 12.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+group = SubResource( 2 )
+text = "Special"
+clip_text = true
+
+[node name="Super" type="Button" parent="Margins/VBoxContainer/ContentScroll/Content/TabMoveList/Types"]
+margin_left = 174.0
+margin_right = 231.0
+margin_bottom = 12.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+group = SubResource( 2 )
+text = "Super"
+clip_text = true
+
+[node name="Defense" type="Button" parent="Margins/VBoxContainer/ContentScroll/Content/TabMoveList/Types"]
+margin_left = 232.0
+margin_right = 290.0
+margin_bottom = 12.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+group = SubResource( 2 )
+text = "Defense"
+clip_text = true
+
+[node name="Moves" type="GridContainer" parent="Margins/VBoxContainer/ContentScroll/Content/TabMoveList"]
+unique_name_in_owner = true
+margin_left = 145.0
+margin_top = 28.0
+margin_right = 145.0
+margin_bottom = 28.0
+size_flags_horizontal = 4
+custom_constants/vseparation = 0
+custom_constants/hseparation = 0
+columns = 16
+
+[node name="Seperator" type="ColorRect" parent="Margins/VBoxContainer/ContentScroll/Content/TabMoveList"]
+margin_top = 29.0
+margin_right = 290.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 1, 1 )
+color = Color( 1, 1, 1, 0.25098 )
+
+[node name="Variants" type="HBoxContainer" parent="Margins/VBoxContainer/ContentScroll/Content/TabMoveList"]
+margin_top = 31.0
+margin_right = 290.0
+margin_bottom = 43.0
+rect_min_size = Vector2( 0, 12 )
+
+[node name="MoveTitle" type="Label" parent="Margins/VBoxContainer/ContentScroll/Content/TabMoveList/Variants"]
+unique_name_in_owner = true
+margin_right = 290.0
+margin_bottom = 11.0
+size_flags_horizontal = 3
+clip_text = true
+
+[node name="Variant1" type="Button" parent="Margins/VBoxContainer/ContentScroll/Content/TabMoveList/Variants"]
+visible = false
+margin_left = 33.0
+margin_right = 290.0
+margin_bottom = 12.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+group = SubResource( 4 )
+text = "Grounded"
+
+[node name="Variant2" type="Button" parent="Margins/VBoxContainer/ContentScroll/Content/TabMoveList/Variants"]
+visible = false
+margin_left = 43.0
+margin_right = 290.0
+margin_bottom = 12.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+group = SubResource( 4 )
+text = "Aerial"
+
+[node name="Scroll" type="ScrollContainer" parent="Margins/VBoxContainer/ContentScroll/Content/TabMoveList"]
+margin_top = 44.0
+margin_right = 290.0
+margin_bottom = 230.0
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margins/VBoxContainer/ContentScroll/Content/TabMoveList/Scroll"]
+margin_right = 290.0
+margin_bottom = 186.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 5
+
+[node name="FrameData" type="GridContainer" parent="Margins/VBoxContainer/ContentScroll/Content/TabMoveList/Scroll/VBoxContainer"]
+unique_name_in_owner = true
+margin_right = 290.0
+size_flags_horizontal = 3
+custom_constants/vseparation = 4
+custom_constants/hseparation = 2
+columns = 33
+
+[node name="MoveDesc" type="RichTextLabel" parent="Margins/VBoxContainer/ContentScroll/Content/TabMoveList/Scroll/VBoxContainer"]
+unique_name_in_owner = true
+margin_top = 5.0
+margin_right = 290.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+bbcode_enabled = true
+fit_content_height = true
+scroll_active = false
+
+[node name="Seperator" type="ColorRect" parent="Margins/VBoxContainer/ContentScroll/Content/TabMoveList/Scroll/VBoxContainer"]
+margin_top = 22.0
+margin_right = 290.0
+margin_bottom = 23.0
+rect_min_size = Vector2( 1, 1 )
+color = Color( 1, 1, 1, 0.25098 )
+
+[node name="MoveStats" type="HFlowContainer" parent="Margins/VBoxContainer/ContentScroll/Content/TabMoveList/Scroll/VBoxContainer"]
+unique_name_in_owner = true
+margin_top = 28.0
+margin_right = 290.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+custom_constants/vseparation = 2
+custom_constants/hseparation = 12
+
+[node name="Seperator2" type="ColorRect" parent="Margins/VBoxContainer/ContentScroll/Content/TabMoveList/Scroll/VBoxContainer"]
+margin_top = 33.0
+margin_right = 290.0
+margin_bottom = 34.0
+rect_min_size = Vector2( 1, 1 )
+color = Color( 1, 1, 1, 0.25098 )
+
+[node name="HitboxStats" type="VBoxContainer" parent="Margins/VBoxContainer/ContentScroll/Content/TabMoveList/Scroll/VBoxContainer"]
+unique_name_in_owner = true
+margin_top = 39.0
+margin_right = 290.0
+margin_bottom = 39.0
+custom_constants/separation = 8
+
+[node name="TabStats" type="HBoxContainer" parent="Margins/VBoxContainer/ContentScroll/Content"]
+unique_name_in_owner = true
+margin_top = 5.0
+margin_right = 290.0
+margin_bottom = 235.0
+custom_constants/separation = 4
+alignment = 2
+
+[node name="IdleVBoxContainer" type="VBoxContainer" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats"]
+margin_right = 186.0
+margin_bottom = 230.0
+size_flags_horizontal = 3
+custom_constants/separation = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/IdleVBoxContainer"]
+margin_right = 186.0
+margin_bottom = 23.0
+
+[node name="AirOptionContainer" type="VBoxContainer" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/IdleVBoxContainer/HBoxContainer"]
+margin_right = 92.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+custom_constants/separation = 0
+
+[node name="AirOptionLabel" type="Label" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/IdleVBoxContainer/HBoxContainer/AirOptionContainer"]
+unique_name_in_owner = true
+margin_right = 92.0
+margin_bottom = 11.0
+size_flags_horizontal = 3
+text = "Air Options"
+clip_text = true
+
+[node name="AirOptionDisplay" type="Control" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/IdleVBoxContainer/HBoxContainer/AirOptionContainer"]
+unique_name_in_owner = true
+margin_top = 11.0
+margin_right = 92.0
+margin_bottom = 23.0
+rect_clip_content = true
+hint_tooltip = "+1 In Combo"
+size_flags_horizontal = 3
+script = ExtResource( 5 )
+texture = ExtResource( 10 )
+draw_gap = 1.0
+value = 6
+lose_one_in_neutral = true
+
+[node name="AirOptionBar" type="TextureProgress" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/IdleVBoxContainer/HBoxContainer/AirOptionContainer"]
+unique_name_in_owner = true
+visible = false
+margin_top = 23.0
+margin_right = 50.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 50, 12 )
+size_flags_horizontal = 0
+value = 100.0
+texture_progress = ExtResource( 11 )
+fill_mode = 1
+nine_patch_stretch = true
+stretch_margin_left = 3
+stretch_margin_top = 3
+stretch_margin_right = 3
+stretch_margin_bottom = 3
+
+[node name="FreeCancelContainer" type="VBoxContainer" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/IdleVBoxContainer/HBoxContainer"]
+margin_left = 93.0
+margin_right = 186.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+custom_constants/separation = 0
+
+[node name="FreeCancelLabel" type="Label" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/IdleVBoxContainer/HBoxContainer/FreeCancelContainer"]
+unique_name_in_owner = true
+margin_right = 93.0
+margin_bottom = 11.0
+size_flags_horizontal = 3
+text = "Free Cancels"
+clip_text = true
+
+[node name="FreeCancelDispay" type="Control" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/IdleVBoxContainer/HBoxContainer/FreeCancelContainer"]
+unique_name_in_owner = true
+margin_top = 11.0
+margin_right = 93.0
+margin_bottom = 23.0
+rect_clip_content = true
+size_flags_horizontal = 3
+script = ExtResource( 5 )
+texture = ExtResource( 9 )
+draw_gap = 1.0
+value = 6
+
+[node name="IdleContainer" type="Control" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/IdleVBoxContainer"]
+margin_top = 23.0
+margin_right = 186.0
+margin_bottom = 230.0
+rect_pivot_offset = Vector2( 9, 98 )
+rect_clip_content = true
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="IdleCenter" type="Control" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/IdleVBoxContainer/IdleContainer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_top = 60.0
+margin_bottom = 60.0
+
+[node name="IdleSprite" type="TextureRect" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/IdleVBoxContainer/IdleContainer/IdleCenter"]
+unique_name_in_owner = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_top = -36.0
+margin_bottom = -36.0
+rect_scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 4
+
+[node name="Hurtbox" type="Panel" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/IdleVBoxContainer/IdleContainer/IdleCenter"]
+unique_name_in_owner = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -28.0
+margin_top = -64.0
+margin_right = 28.0
+custom_styles/panel = SubResource( 5 )
+
+[node name="Floor" type="ColorRect" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/IdleVBoxContainer/IdleContainer/IdleCenter"]
+margin_left = -70.0
+margin_right = 70.0
+margin_bottom = 2.0
+
+[node name="StatsVBoxContainer" type="VBoxContainer" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats"]
+margin_left = 190.0
+margin_right = 290.0
+margin_bottom = 230.0
+rect_min_size = Vector2( 100, 0 )
+custom_constants/separation = 0
+
+[node name="MaxHPTitle" type="Label" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/StatsVBoxContainer"]
+margin_right = 100.0
+margin_bottom = 11.0
+text = "Max Health"
+
+[node name="MaxHPStat" type="Label" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/StatsVBoxContainer"]
+unique_name_in_owner = true
+margin_top = 11.0
+margin_right = 100.0
+margin_bottom = 22.0
+text = "10,000"
+align = 2
+clip_text = true
+
+[node name="Seperator1" type="Control" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/StatsVBoxContainer"]
+margin_top = 22.0
+margin_right = 100.0
+margin_bottom = 36.0
+size_flags_vertical = 3
+
+[node name="DamageModTitle" type="Label" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/StatsVBoxContainer"]
+margin_top = 36.0
+margin_right = 100.0
+margin_bottom = 47.0
+text = "Damage Taken"
+
+[node name="DamageModStat" type="Label" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/StatsVBoxContainer"]
+unique_name_in_owner = true
+margin_top = 47.0
+margin_right = 100.0
+margin_bottom = 58.0
+text = "100 %"
+align = 2
+clip_text = true
+
+[node name="KnockbackModTitle" type="Label" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/StatsVBoxContainer"]
+margin_top = 58.0
+margin_right = 100.0
+margin_bottom = 69.0
+text = "Knockback Taken"
+
+[node name="KnockbackModStat" type="Label" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/StatsVBoxContainer"]
+unique_name_in_owner = true
+margin_top = 69.0
+margin_right = 100.0
+margin_bottom = 80.0
+text = "100 %"
+align = 2
+clip_text = true
+
+[node name="DIModTitle" type="Label" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/StatsVBoxContainer"]
+margin_top = 80.0
+margin_right = 100.0
+margin_bottom = 91.0
+text = "DI Strength"
+
+[node name="DIModStat" type="Label" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/StatsVBoxContainer"]
+unique_name_in_owner = true
+margin_top = 91.0
+margin_right = 100.0
+margin_bottom = 102.0
+text = "100 %"
+align = 2
+clip_text = true
+
+[node name="Seperator3" type="Control" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/StatsVBoxContainer"]
+margin_top = 102.0
+margin_right = 100.0
+margin_bottom = 116.0
+size_flags_vertical = 3
+
+[node name="GravityTitle" type="Label" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/StatsVBoxContainer"]
+margin_top = 116.0
+margin_right = 100.0
+margin_bottom = 127.0
+text = "Gravity"
+
+[node name="GravityStat" type="Label" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/StatsVBoxContainer"]
+unique_name_in_owner = true
+margin_top = 127.0
+margin_right = 100.0
+margin_bottom = 138.0
+text = "0.5 px/f²"
+align = 2
+clip_text = true
+
+[node name="FrictionTitle" type="Label" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/StatsVBoxContainer"]
+margin_top = 138.0
+margin_right = 100.0
+margin_bottom = 149.0
+text = "Friction"
+
+[node name="FrctionGroundStat" type="Label" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/StatsVBoxContainer"]
+unique_name_in_owner = true
+margin_top = 149.0
+margin_right = 100.0
+margin_bottom = 160.0
+text = "Ground - 2.5 px/f²"
+align = 2
+clip_text = true
+
+[node name="FrctionAirStat" type="Label" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/StatsVBoxContainer"]
+unique_name_in_owner = true
+margin_top = 160.0
+margin_right = 100.0
+margin_bottom = 171.0
+text = "Air - 0.2 px/f²"
+align = 2
+clip_text = true
+
+[node name="SpeedTitle" type="Label" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/StatsVBoxContainer"]
+margin_top = 171.0
+margin_right = 100.0
+margin_bottom = 182.0
+text = "Max Speed"
+
+[node name="SpeedGroundStat" type="Label" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/StatsVBoxContainer"]
+unique_name_in_owner = true
+margin_top = 182.0
+margin_right = 100.0
+margin_bottom = 193.0
+text = "Ground - 15.0 px/f"
+align = 2
+clip_text = true
+
+[node name="SpeedAirStat" type="Label" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/StatsVBoxContainer"]
+unique_name_in_owner = true
+margin_top = 193.0
+margin_right = 100.0
+margin_bottom = 204.0
+text = "Air - 13 px/f"
+align = 2
+clip_text = true
+
+[node name="SpeedFallStat" type="Label" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/StatsVBoxContainer"]
+unique_name_in_owner = true
+margin_top = 204.0
+margin_right = 100.0
+margin_bottom = 215.0
+text = "Fall - 8 px/f"
+align = 2
+clip_text = true
+
+[node name="Seperator4" type="Control" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/StatsVBoxContainer"]
+margin_top = 215.0
+margin_right = 100.0
+margin_bottom = 230.0
+size_flags_vertical = 3
+
+[node name="TabOptions" type="MarginContainer" parent="Margins/VBoxContainer/ContentScroll/Content"]
+unique_name_in_owner = true
+visible = false
+margin_top = 5.0
+margin_right = 290.0
+margin_bottom = 235.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 0
+custom_constants/margin_top = 0
+custom_constants/margin_left = 0
+custom_constants/margin_bottom = 0
+
+[node name="TabAchievements" type="VBoxContainer" parent="Margins/VBoxContainer/ContentScroll/Content"]
+unique_name_in_owner = true
+visible = false
+margin_top = 5.0
+margin_right = 290.0
+margin_bottom = 235.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Margins/VBoxContainer/ContentScroll/Content/TabAchievements"]
+margin_right = 290.0
+margin_bottom = 160.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="AchievementGrid" type="GridContainer" parent="Margins/VBoxContainer/ContentScroll/Content/TabAchievements/ScrollContainer"]
+unique_name_in_owner = true
+margin_left = 145.0
+margin_right = 145.0
+size_flags_horizontal = 6
+custom_constants/vseparation = 1
+custom_constants/hseparation = 1
+columns = 8
+
+[node name="AchievementHolder" type="Control" parent="Margins/VBoxContainer/ContentScroll/Content/TabAchievements"]
+unique_name_in_owner = true
+margin_top = 161.0
+margin_right = 290.0
+margin_bottom = 225.0
+rect_min_size = Vector2( 0, 64 )
+rect_clip_content = true
+script = ExtResource( 6 )
+line_color = Color( 0.25098, 0.25098, 0.25098, 1 )
+
+[node name="IconHolder" type="Control" parent="Margins/VBoxContainer/ContentScroll/Content/TabAchievements/AchievementHolder"]
+unique_name_in_owner = true
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 4.0
+margin_top = -18.0
+margin_right = 40.0
+margin_bottom = 18.0
+rect_clip_content = true
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+line_color = Color( 0.25, 0.25, 0.25, 1 )
+
+[node name="AchievementIcon" type="TextureRect" parent="Margins/VBoxContainer/ContentScroll/Content/TabAchievements/AchievementHolder/IconHolder"]
+unique_name_in_owner = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+expand = true
+stretch_mode = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margins/VBoxContainer/ContentScroll/Content/TabAchievements/AchievementHolder"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 44.0
+margin_top = 2.0
+margin_right = -1.0
+margin_bottom = -2.0
+mouse_filter = 0
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="AchievementLabel" type="RichTextLabel" parent="Margins/VBoxContainer/ContentScroll/Content/TabAchievements/AchievementHolder/VBoxContainer"]
+unique_name_in_owner = true
+margin_right = 245.0
+margin_bottom = 60.0
+size_flags_vertical = 3
+bbcode_enabled = true
+
+[node name="AchievementProgressSection" type="Control" parent="Margins/VBoxContainer/ContentScroll/Content/TabAchievements/AchievementHolder/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+margin_top = 50.0
+margin_right = 245.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 10 )
+
+[node name="AchievementProgressBar" type="Control" parent="Margins/VBoxContainer/ContentScroll/Content/TabAchievements/AchievementHolder/VBoxContainer/AchievementProgressSection"]
+unique_name_in_owner = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 4.0
+margin_bottom = -4.0
+script = ExtResource( 8 )
+back_color = Color( 0.25098, 0.25098, 0.25098, 1 )
+max_value = 35
+current_value = 69
+
+[node name="AchievementProgressText" type="Label" parent="Margins/VBoxContainer/ContentScroll/Content/TabAchievements/AchievementHolder/VBoxContainer/AchievementProgressSection"]
+unique_name_in_owner = true
+margin_left = -41.0
+margin_top = -1.0
+margin_right = -3.0
+margin_bottom = 10.0
+text = "35/69"
+align = 1
+
+[node name="AchievementGotLabel" type="Label" parent="Margins/VBoxContainer/ContentScroll/Content/TabAchievements/AchievementHolder"]
+unique_name_in_owner = true
+visible = false
+anchor_left = 0.014
+anchor_top = 0.219
+anchor_right = 0.138
+anchor_bottom = 0.219
+margin_left = -1.06
+margin_top = -12.016
+margin_right = 2.98
+margin_bottom = -1.016
+text = "GOT!"
+align = 1
+
+[node name="Seperator" type="Control" parent="Margins/VBoxContainer/ContentScroll/Content/TabAchievements"]
+margin_top = 226.0
+margin_right = 290.0
+margin_bottom = 230.0
+rect_min_size = Vector2( 0, 4 )

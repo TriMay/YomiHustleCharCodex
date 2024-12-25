@@ -1,0 +1,66 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://theme.tres" type="Theme" id=1]
+[ext_resource path="res://_tri_char_codex/codex_theme.tres" type="Theme" id=2]
+[ext_resource path="res://_tri_char_codex/windows/CharOptionsCodexMenu.gd" type="Script" id=3]
+
+[node name="VBoxContainer" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+script = ExtResource( 3 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+margin_right = 640.0
+margin_bottom = 335.0
+rect_pivot_offset = Vector2( -129, 42 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 2 )
+scroll_horizontal_enabled = false
+
+[node name="OptionsContainer" type="MarginContainer" parent="ScrollContainer"]
+unique_name_in_owner = true
+margin_right = 640.0
+margin_bottom = 335.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 2
+custom_constants/margin_top = 2
+custom_constants/margin_left = 2
+custom_constants/margin_bottom = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_top = 336.0
+margin_right = 640.0
+margin_bottom = 360.0
+mouse_filter = 1
+custom_constants/margin_right = 2
+custom_constants/margin_top = 2
+custom_constants/margin_left = 2
+custom_constants/margin_bottom = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 638.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+custom_constants/separation = 4
+
+[node name="EmptySpace" type="Control" parent="MarginContainer/HBoxContainer"]
+margin_right = 316.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="SaveButton" type="Button" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+margin_left = 320.0
+margin_right = 636.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
+size_flags_horizontal = 3
+custom_colors/font_color = Color( 0, 0.752941, 0, 1 )
+text = "Save and Close"

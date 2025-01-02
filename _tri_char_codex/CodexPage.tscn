@@ -633,6 +633,21 @@ margin_left = -70.0
 margin_right = 70.0
 margin_bottom = 2.0
 
+[node name="WinCount" type="Label" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/IdleVBoxContainer/IdleContainer"]
+unique_name_in_owner = true
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -93.0
+margin_top = -37.0
+margin_bottom = -19.0
+rect_scale = Vector2( 2, 2 )
+text = "69 Wins"
+align = 1
+valign = 1
+clip_text = true
+
 [node name="StatsVBoxContainer" type="VBoxContainer" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats"]
 margin_left = 190.0
 margin_right = 290.0

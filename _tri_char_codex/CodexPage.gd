@@ -76,6 +76,8 @@ func _ready():
 			"TabAchievements":
 				$"%AchievementsButton".set_pressed(true)
 				has_preffered_tab = true
+		var num_wins = CodexHandler.num_wins(char_path)
+		$"%WinCount".text = str(num_wins) + " Win" + ("" if num_wins == 1 else "s")
 	if not has_preffered_tab:
 		var store_tab = CodexHandler.preferred_tab
 		if $"%MoveListButton".visible: # TOOD blank movelist tab when has no tab

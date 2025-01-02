@@ -24,3 +24,8 @@ func _ready():
 	var achievement_popup = load("res://_tri_char_codex/components/AchievementPopup.tscn").instance()
 	var main = get_node("/root/Main")
 	main.call_deferred("add_child", achievement_popup)
+	
+	
+	var codex_lib = get_node_or_null("/root/CharCodexLibrary")
+	if is_instance_valid(codex_lib):
+		main.connect("game_started", codex_lib, "__on_game_started", [], CONNECT_DEFERRED)

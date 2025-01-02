@@ -36,7 +36,9 @@ func _init():
 
 func _ready():
 	name = "CharCodexLibrary"
-
+	var main = get_node_or_null("/root/Main")
+	if is_instance_valid(main):
+		main.connect("game_started", self, "__on_game_started", [], CONNECT_DEFERRED)
 
 
 func generate_node(char_path : String):
@@ -739,6 +741,65 @@ func __modify_style_data(char_path, style_data):
 	return style_data
 
 
+func track_win(fighter):
+	var char_path = ""
+	if fighter is Node:
+			char_path = fighter.filename
+	elif fighter is String:
+		char_path = fighter
+	if char_path == "":
+		return
+	var all_wins = load_codex_setting("wins")
+	if not (all_wins is Dictionary):
+		all_wins = {}
+	var count = all_wins.get(char_path, 0)
+	if not (count is int or count is float):
+		count = 0
+	all_wins[char_path] = count + 1
+	save_codex_setting("wins", all_wins)
+
+
+func num_wins(fighter) -> int:
+	var char_path = ""
+	if fighter is Node:
+			char_path = fighter.filename
+	elif fighter is String:
+		char_path = fighter
+	if char_path == "":
+		return 0
+	var all_wins = load_codex_setting("wins")
+	if not (all_wins is Dictionary):
+		return 0
+	var count = all_wins.get(char_path, 0)
+	if not (count is int or count is float):
+		return 0
+	return count
+
+
+func __on_game_started():
+	var game = Global.current_game
+	if is_instance_valid(game):
+		game.connect("game_won", self, "__on_game_won", [game])
+		game.connect("forfeit_started", self, "__on_game_forfeit", [game])
+
+
+func __on_game_won(winner, game):
+	if not is_instance_valid(game):
+		return
+	if not Network.multiplayer_active:
+		return
+	if ReplayManager.playback or ReplayManager.replaying_ingame:
+		return
+	if SteamLobby.SPECTATING:
+		return 
+	if winner == Network.player_id:
+		track_win(game.get_player(winner))
+
+
+func __on_game_forfeit(loser, game):
+	__on_game_won(2 if loser == 1 else 1, game)
+
+
 
 
 
@@ -819,7 +880,15 @@ class CodexData extends Reference:
 		})
 	
 	
-	func add_custom_scene_tab(tab_title : String, scene : PackedScene):
+	func add_custom_scene_tab(tab_title : String, scene):
+		if scene is String:
+			if not ResourceLoader.exists(scene):
+				printerr("CODEX ERROR: failed to add tab ", tab_title,", ", scene ," does not exist!")
+				return null
+			scene = load(scene)
+		if not (scene is PackedScene):
+			printerr("CODEX ERROR: failed to add tab ", tab_title,", ", scene ," is not a scene!")
+			return null
 		custom_tabs.append({
 			"title": tab_title,
 			"type": "scene",

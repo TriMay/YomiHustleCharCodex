@@ -35,6 +35,7 @@ func _init():
 	default_achievement_texture = load("res://ui/HUD/feint.png")
 
 
+
 func _ready():
 	for button in $"%Types".get_children():
 		button.connect("toggled", self, "_type_button_toggled", [button.name])
@@ -77,7 +78,9 @@ func _ready():
 				$"%AchievementsButton".set_pressed(true)
 				has_preffered_tab = true
 		var num_wins = CodexHandler.num_wins(char_path)
+		var num_loss = CodexHandler.num_losses(char_path)
 		$"%WinCount".text = str(num_wins) + " Win" + ("" if num_wins == 1 else "s")
+		$"%LossCount".text = str(num_loss) + " Loss" + ("" if num_loss == 1 else "es")
 	if not has_preffered_tab:
 		var store_tab = CodexHandler.preferred_tab
 		if $"%MoveListButton".visible: # TOOD blank movelist tab when has no tab
@@ -390,6 +393,7 @@ func _state_button_toggled(toggled, state):
 		var in_grab_invuln : bool = false
 		var in_aerial_invuln : bool = false
 		var in_grounded_invuln : bool = false
+		var air_type : String = "Grounded"
 		var num_pills = move.length
 		if num_pills == -1 and move.endless:
 			for tick_id in move.tick_data:
@@ -497,6 +501,13 @@ func _state_button_toggled(toggled, state):
 			$"%MoveStats".add_child(create_move_stat_panel("Super Cost", move.super_cost))
 		for stat in move.custom_stats:
 			$"%MoveStats".add_child(create_move_stat_panel(stat, move.custom_stats[stat]))
+		match move.air_type:
+			0: # Grounded
+				$"%MoveStats".add_child(create_move_stat_panel("Air Type", "Grounded"))
+			1: # Aerial
+				$"%MoveStats".add_child(create_move_stat_panel("Air Type", "Aerial"))
+			2: # Both
+				$"%MoveStats".add_child(create_move_stat_panel("Air Type", "Both"))
 		for hitbox_id in move.hitbox_data:
 			var hitbox = move.hitbox_data[hitbox_id]
 			if hitbox.marked_as_duplicate:
@@ -557,6 +568,11 @@ func _state_button_toggled(toggled, state):
 			hitbox_info.set_vs_otg(hitbox.hits_otg)
 			hitbox_info.set_vs_dizzy(hitbox.hits_dizzy)
 			hitbox_info.set_vs_projectiles(hitbox.hits_projectiles)
+			hitbox_info.set_knockdown(hitbox.knockdown)
+			hitbox_info.set_knockdown_extends(hitbox.knockdown_extends_hitstun)
+			hitbox_info.set_hard_knockdown(hitbox.hard_knockdown)
+			hitbox_info.set_ground_bounce(hitbox.ground_bounce)
+			hitbox_info.set_air_ground_bounce(hitbox.air_ground_bounce)
 			
 			var in_combo_damage = hitbox.damage if hitbox.combo_damage == -1 else hitbox.combo_damage
 			var minimum_damage = hitbox.minimum_damage
@@ -660,8 +676,6 @@ func create_move_stat_panel(stat, value):
 		label.rect_min_size.x = MAX_LABEL_WIDTH
 		label.autowrap = true
 	return label
-
-
 
 # DEBUG SETTINGS
 func _on_debug_setting_changed(setting, value, first_set = false):

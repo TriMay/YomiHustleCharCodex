@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://theme.tres" type="Theme" id=1]
 [ext_resource path="res://characters/stickman/sprites/idle.png" type="Texture" id=2]
@@ -11,6 +11,9 @@
 [ext_resource path="res://ui/HUD/feint.png" type="Texture" id=9]
 [ext_resource path="res://ui/HUD/air_movement.png" type="Texture" id=10]
 [ext_resource path="res://ui/airoptionbar.png" type="Texture" id=11]
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
 
 [sub_resource type="ButtonGroup" id=1]
 
@@ -48,6 +51,7 @@ script = ExtResource( 4 )
 [node name="BGColor" type="Panel" parent="."]
 margin_right = 300.0
 margin_bottom = 320.0
+custom_styles/panel = SubResource( 6 )
 
 [node name="Margins" type="MarginContainer" parent="."]
 margin_right = 300.0
@@ -280,7 +284,6 @@ fit_content_height = true
 
 [node name="TabMoveList" type="VBoxContainer" parent="Margins/VBoxContainer/ContentScroll/Content"]
 unique_name_in_owner = true
-visible = false
 margin_top = 5.0
 margin_right = 290.0
 margin_bottom = 235.0
@@ -415,7 +418,7 @@ clip_text = true
 
 [node name="Variant1" type="Button" parent="Margins/VBoxContainer/ContentScroll/Content/TabMoveList/Variants"]
 visible = false
-margin_left = 33.0
+margin_left = 145.0
 margin_right = 290.0
 margin_bottom = 12.0
 size_flags_horizontal = 3
@@ -426,7 +429,7 @@ text = "Grounded"
 
 [node name="Variant2" type="Button" parent="Margins/VBoxContainer/ContentScroll/Content/TabMoveList/Variants"]
 visible = false
-margin_left = 43.0
+margin_left = 194.0
 margin_right = 290.0
 margin_bottom = 12.0
 size_flags_horizontal = 3
@@ -639,14 +642,34 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -93.0
-margin_top = -37.0
-margin_bottom = -19.0
-rect_scale = Vector2( 2, 2 )
+margin_left = -70.0
+margin_top = -44.0
+margin_right = 23.0
+margin_bottom = -26.0
+rect_scale = Vector2( 1.5, 1.5 )
 text = "69 Wins"
 align = 1
 valign = 1
 clip_text = true
+
+[node name="LossCount" type="Label" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/IdleVBoxContainer/IdleContainer"]
+unique_name_in_owner = true
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -70.0
+margin_top = -27.0
+margin_right = 23.0
+margin_bottom = -9.0
+rect_scale = Vector2( 1.5, 1.5 )
+text = "69 Losses"
+align = 1
+valign = 1
+clip_text = true
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="StatsVBoxContainer" type="VBoxContainer" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats"]
 margin_left = 190.0

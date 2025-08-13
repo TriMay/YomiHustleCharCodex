@@ -478,7 +478,8 @@ func init_char_data(char_path : String):
 			if json_parse.result is Dictionary:
 				data = json_parse.result
 		else:
-			print(json_parse.error_string)
+			if OS.is_debug_build():
+				print(json_parse.error_string)
 	codex_save_data[char_path] = data if data is Dictionary else get_new_char_data(char_path)
 
 
@@ -928,11 +929,13 @@ class CodexData extends Reference:
 	func add_custom_scene_tab(tab_title : String, scene):
 		if scene is String:
 			if not ResourceLoader.exists(scene):
-				printerr("CODEX ERROR: failed to add tab ", tab_title,", ", scene ," does not exist!")
+				if OS.is_debug_build():
+					printerr("CODEX ERROR: failed to add tab ", tab_title,", ", scene ," does not exist!")
 				return null
 			scene = load(scene)
 		if not (scene is PackedScene):
-			printerr("CODEX ERROR: failed to add tab ", tab_title,", ", scene ," is not a scene!")
+			if OS.is_debug_build():
+				printerr("CODEX ERROR: failed to add tab ", tab_title,", ", scene ," is not a scene!")
 			return null
 		custom_tabs.append({
 			"title": tab_title,
@@ -2072,10 +2075,6 @@ func __page_editor(char_path : String):
 			override.callv("modify_codex_page", [codex_page, params])
 		if override.has_method("queue_free"):
 			override.queue_free()
-
-
-
-
 
 
 class CodexAchievement extends Reference:

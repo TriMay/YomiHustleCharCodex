@@ -58,6 +58,26 @@ func set_vs_projectiles(hits : bool):
 	$"%Projectiles".modulate = HITS_TRUE_COLOR if hits else HITS_FALSE_COLOR
 	$"%Projectiles".hint_tooltip = ("Hits" if hits else "Misses") + " VS Projectiles"
 
+func set_knockdown(hits : bool):
+	$"%Knockdown".modulate = HITS_TRUE_COLOR if hits else HITS_FALSE_COLOR
+	$"%Knockdown".hint_tooltip = ("Does" if hits else "Doesn't") + " Knockdown opponent"
+
+func set_knockdown_extends(hits : bool):
+	$"%Knockdown Extend".modulate = HITS_TRUE_COLOR if hits else HITS_FALSE_COLOR
+	$"%Knockdown Extend".hint_tooltip = ("Does" if hits else "Doesn't") + " Knockdown Extend opponent"
+
+func set_hard_knockdown(hits : bool):
+	$"%Hard Knockdown".modulate = HITS_TRUE_COLOR if hits else HITS_FALSE_COLOR
+	$"%Hard Knockdown".hint_tooltip = ("Does" if hits else "Doesn't") + " Hard Knockdown opponent"
+
+func set_ground_bounce(hits : bool):
+	$"%Ground Bounce".modulate = HITS_TRUE_COLOR if hits else HITS_FALSE_COLOR
+	$"%Ground Bounce".hint_tooltip = ("Does" if hits else "Doesn't") + " Ground bounce opponent"
+
+func set_air_ground_bounce(hits : bool):
+	$"%Air Ground Bounce".modulate = HITS_TRUE_COLOR if hits else HITS_FALSE_COLOR
+	$"%Air Ground Bounce".hint_tooltip = ("Does" if hits else "Doesn't") + " Air Ground bounce opponent"
+
 
 func add_stat_panel(stat, value, more_value = null, hidden_info = false):
 	var panel = load("res://_tri_char_codex/components/StatPanel.tscn").instance()

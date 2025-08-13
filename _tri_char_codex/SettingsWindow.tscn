@@ -173,7 +173,46 @@ custom_colors/font_color = Color( 0.627451, 0.627451, 0.627451, 1 )
 text = "> If on: ALL characters on the character select screen will display an additional \"Play\" confirmation button after the first click (including ones without an options menu)"
 autowrap = true
 
-[node name="CloseSettings" type="Button" parent="SettingsWindow/VBoxContainer/Contents/MarginContainer/VBoxContainer" index="2"]
+[node name="Space3" type="Control" parent="SettingsWindow/VBoxContainer/Contents/MarginContainer/VBoxContainer" index="2"]
+visible = false
+margin_top = 57.0
+margin_right = 290.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 3 )
+
+[node name="HideWinCount" type="CheckButton" parent="SettingsWindow/VBoxContainer/Contents/MarginContainer/VBoxContainer" index="3"]
+unique_name_in_owner = true
+visible = false
+margin_top = 63.0
+margin_right = 290.0
+margin_bottom = 75.0
+size_flags_vertical = 4
+text = "Hide Character Win Counter"
+
+[node name="Space" type="Control" parent="SettingsWindow/VBoxContainer/Contents/MarginContainer/VBoxContainer" index="4"]
+visible = false
+margin_top = 78.0
+margin_right = 290.0
+margin_bottom = 81.0
+rect_min_size = Vector2( 0, 3 )
+
+[node name="HideLossCount2" type="CheckButton" parent="SettingsWindow/VBoxContainer/Contents/MarginContainer/VBoxContainer" index="5"]
+unique_name_in_owner = true
+visible = false
+margin_top = 84.0
+margin_right = 290.0
+margin_bottom = 96.0
+size_flags_vertical = 4
+text = "Hide Character Loss Counter"
+
+[node name="Space2" type="Control" parent="SettingsWindow/VBoxContainer/Contents/MarginContainer/VBoxContainer" index="6"]
+visible = false
+margin_top = 99.0
+margin_right = 290.0
+margin_bottom = 102.0
+rect_min_size = Vector2( 0, 3 )
+
+[node name="CloseSettings" type="Button" parent="SettingsWindow/VBoxContainer/Contents/MarginContainer/VBoxContainer" index="7"]
 unique_name_in_owner = true
 margin_top = 60.0
 margin_right = 290.0

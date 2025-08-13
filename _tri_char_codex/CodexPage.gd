@@ -289,7 +289,8 @@ func _stance_option_changed(item, option_node : OptionButton):
 func _options_changed(options):
 	if not $"%TabOptions".visible:
 		return
-	print(options.get_data())
+	if OS.is_debug_build():
+		print(options.get_data())
 	var CodexHandler = get_node_or_null("/root/CharCodexLibrary")
 	if CodexHandler	!= null:
 		CodexHandler.save_all_char_options(char_path, options.get_data())

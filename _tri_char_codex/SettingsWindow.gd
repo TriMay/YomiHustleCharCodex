@@ -27,6 +27,8 @@ func _ready():
 	$"%Settings".connect("pressed", self, "_settings_clicked")
 	$"%CloseSettings".connect("pressed", self, "_close_settings")
 	$"%MisclickProtection".connect("toggled", self, "_misclick_prevent_toggled")
+	$"%HideWinCount".connect("toggled", self, "_win_hider_toggled")
+	$"%HideLossCount2".connect("toggled", self, "_loss_hider_toggled")
 	search_node.connect("text_changed", self, "_on_search_changed")
 	connect("visibility_changed", self, "_on_visibility_changed")
 	hide()
@@ -66,6 +68,8 @@ func _close_clicked():
 
 func _settings_clicked():
 	$"%MisclickProtection".set_pressed_no_signal(CodexHandler.load_codex_setting("misclick_prevent"))
+#	$"%HideWinCount".set_pressed_no_signal(CodexHandler.load_codex_setting("hide_wins"))
+#	$"%HideLossCount2".set_pressed_no_signal(CodexHandler.load_codex_setting("hide_loss"))
 	$SettingsWindow.visible = not $SettingsWindow.visible
 	$SettingsCover.visible = $SettingsWindow.visible
 
@@ -77,6 +81,12 @@ func _close_settings():
 
 func _misclick_prevent_toggled(toggle):
 	CodexHandler.save_codex_setting("misclick_prevent", toggle)
+
+#func _win_hider_toggled(toggle):
+#	CodexHandler.save_codex_setting("hide_wins", toggle)
+#
+#func _loss_hider_toggled(toggle):
+#	CodexHandler.save_codex_setting("hide_loss", toggle)
 
 
 func _mainmenu_button_pressed():
@@ -160,7 +170,6 @@ func _on_char_button_toggled(toggled, char_path, char_index):
 				async_load_char_page({ "file":char_path, "index":char_index })
 
 
-
 func async_load_char_page(char_data):
 	currently_loading = true
 	var codex = CodexHandler
@@ -203,7 +212,6 @@ func try_to_clean_thread():
 
 func _exit_tree():
 	try_to_clean_thread()
-
 
 
 func _on_change_debug_setting(toggled, setting):

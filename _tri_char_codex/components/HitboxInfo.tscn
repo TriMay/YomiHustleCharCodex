@@ -98,11 +98,69 @@ hint_tooltip = "Misses Vs Projectiles"
 mouse_filter = 0
 text = "Proj."
 
-[node name="Stats" type="HFlowContainer" parent="."]
-unique_name_in_owner = true
+[node name="KDInfo" type="HBoxContainer" parent="."]
+margin_left = 514.0
 margin_top = 12.0
 margin_right = 640.0
-margin_bottom = 12.0
+margin_bottom = 23.0
+size_flags_horizontal = 12
+size_flags_vertical = 2
+custom_constants/separation = 8
+
+[node name="Knockdown" type="Label" parent="KDInfo"]
+unique_name_in_owner = true
+modulate = Color( 0.3, 0.3, 0.3, 1 )
+margin_right = 12.0
+margin_bottom = 11.0
+hint_tooltip = "Misses Vs Grounded"
+mouse_filter = 0
+text = "KD"
+
+[node name="Knockdown Extend" type="Label" parent="KDInfo"]
+unique_name_in_owner = true
+modulate = Color( 0.3, 0.3, 0.3, 1 )
+margin_left = 20.0
+margin_right = 38.0
+margin_bottom = 11.0
+hint_tooltip = "Misses Vs Aerial"
+mouse_filter = 0
+text = "KDE"
+
+[node name="Hard Knockdown" type="Label" parent="KDInfo"]
+unique_name_in_owner = true
+modulate = Color( 0.3, 0.3, 0.3, 1 )
+margin_left = 46.0
+margin_right = 64.0
+margin_bottom = 11.0
+hint_tooltip = "Misses Vs Standing"
+mouse_filter = 0
+text = "HKD"
+
+[node name="Ground Bounce" type="Label" parent="KDInfo"]
+unique_name_in_owner = true
+modulate = Color( 0.3, 0.3, 0.3, 1 )
+margin_left = 72.0
+margin_right = 92.0
+margin_bottom = 11.0
+hint_tooltip = "Misses Vs Knockdown"
+mouse_filter = 0
+text = "GBo."
+
+[node name="Air Ground Bounce" type="Label" parent="KDInfo"]
+unique_name_in_owner = true
+modulate = Color( 0.3, 0.3, 0.3, 1 )
+margin_left = 100.0
+margin_right = 126.0
+margin_bottom = 11.0
+hint_tooltip = "Misses Vs Dizzy"
+mouse_filter = 0
+text = "AGBo."
+
+[node name="Stats" type="HFlowContainer" parent="."]
+unique_name_in_owner = true
+margin_top = 360.0
+margin_right = 640.0
+margin_bottom = 360.0
 size_flags_horizontal = 3
 theme = ExtResource( 3 )
 custom_constants/vseparation = 3

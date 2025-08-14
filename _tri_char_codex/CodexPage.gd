@@ -400,7 +400,6 @@ func _state_button_toggled(toggled, state):
 		var in_grab_invuln : bool = false
 		var in_aerial_invuln : bool = false
 		var in_grounded_invuln : bool = false
-		var air_type : String = "Grounded"
 		var num_pills = move.length
 		if num_pills == -1 and move.endless:
 			for tick_id in move.tick_data:
@@ -502,19 +501,19 @@ func _state_button_toggled(toggled, state):
 			$"%MoveStats".add_child(create_move_stat_panel("Set Stance To", move.change_stance))
 		if earliest_interrupt >= 0:
 			$"%MoveStats".add_child(create_move_stat_panel("IASA", earliest_interrupt + 1))
+		match move.air_type:
+			"Grounded": # Grounded
+				$"%MoveStats".add_child(create_move_stat_panel("Air Type", "Grounded"))
+			"Aerial": # Aerial
+				$"%MoveStats".add_child(create_move_stat_panel("Air Type", "Aerial"))
+			"Both": # Both
+				$"%MoveStats".add_child(create_move_stat_panel("Air Type", "Both"))
 		if move.super_req > 0:
 			$"%MoveStats".add_child(create_move_stat_panel("Super Req." if move.super_cost >= 0 and move.super_cost != move.super_req else "Super", move.super_req))
 		if move.super_cost >= 0 and move.super_cost != move.super_req:
 			$"%MoveStats".add_child(create_move_stat_panel("Super Cost", move.super_cost))
 		for stat in move.custom_stats:
 			$"%MoveStats".add_child(create_move_stat_panel(stat, move.custom_stats[stat]))
-#		match move.air_type:
-#			0: # Grounded
-#				$"%MoveStats".add_child(create_move_stat_panel("Air Type", "Grounded"))
-#			1: # Aerial
-#				$"%MoveStats".add_child(create_move_stat_panel("Air Type", "Aerial"))
-#			2: # Both
-#				$"%MoveStats".add_child(create_move_stat_panel("Air Type", "Both"))
 		for hitbox_id in move.hitbox_data:
 			var hitbox = move.hitbox_data[hitbox_id]
 			if hitbox.marked_as_duplicate:

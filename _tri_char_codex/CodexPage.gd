@@ -369,6 +369,12 @@ func handle_url_meta(meta):
 				if button.text == target:
 					button.set_pressed(true)
 					break
+		if parsed_meta.begins_with("type:"):
+			var target = parsed_meta.substr(5)
+			var button = $"%Types".get_node_or_null("%Types/" + target)
+			if button != null:
+				button.set_pressed(true)
+				$"%MoveListButton".set_pressed(true)
 
 
 func _state_button_toggled(toggled, state):
@@ -502,13 +508,13 @@ func _state_button_toggled(toggled, state):
 			$"%MoveStats".add_child(create_move_stat_panel("Super Cost", move.super_cost))
 		for stat in move.custom_stats:
 			$"%MoveStats".add_child(create_move_stat_panel(stat, move.custom_stats[stat]))
-		match move.air_type:
-			0: # Grounded
-				$"%MoveStats".add_child(create_move_stat_panel("Air Type", "Grounded"))
-			1: # Aerial
-				$"%MoveStats".add_child(create_move_stat_panel("Air Type", "Aerial"))
-			2: # Both
-				$"%MoveStats".add_child(create_move_stat_panel("Air Type", "Both"))
+#		match move.air_type:
+#			0: # Grounded
+#				$"%MoveStats".add_child(create_move_stat_panel("Air Type", "Grounded"))
+#			1: # Aerial
+#				$"%MoveStats".add_child(create_move_stat_panel("Air Type", "Aerial"))
+#			2: # Both
+#				$"%MoveStats".add_child(create_move_stat_panel("Air Type", "Both"))
 		for hitbox_id in move.hitbox_data:
 			var hitbox = move.hitbox_data[hitbox_id]
 			if hitbox.marked_as_duplicate:

@@ -202,8 +202,7 @@ custom_constants/separation = 2
 
 [node name="SummaryButton" type="Button" parent="Margins/VBoxContainer/TabScroll/TabContainer"]
 unique_name_in_owner = true
-visible = false
-margin_right = 143.0
+margin_right = 95.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -213,7 +212,8 @@ text = "Summary"
 
 [node name="MoveListButton" type="Button" parent="Margins/VBoxContainer/TabScroll/TabContainer"]
 unique_name_in_owner = true
-margin_right = 144.0
+margin_left = 97.0
+margin_right = 192.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -223,7 +223,7 @@ text = "Move List"
 
 [node name="StatsButton" type="Button" parent="Margins/VBoxContainer/TabScroll/TabContainer"]
 unique_name_in_owner = true
-margin_left = 146.0
+margin_left = 194.0
 margin_right = 290.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
@@ -260,7 +260,6 @@ custom_constants/margin_bottom = 0
 
 [node name="TabSummary" type="MarginContainer" parent="Margins/VBoxContainer/ContentScroll/Content"]
 unique_name_in_owner = true
-visible = false
 margin_top = 5.0
 margin_right = 290.0
 margin_bottom = 235.0

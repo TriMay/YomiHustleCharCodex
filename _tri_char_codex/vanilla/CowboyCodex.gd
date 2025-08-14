@@ -18,3 +18,7 @@ func setup_achievements(list):
 		"icon": "res://_tri_char_codex/images/ACH_TELEPORTS_BEHIND_YOU.png",
 		"unlocked": Steam.getAchievement("ACH_TELEPORTS_BEHIND_YOU")["achieved"]
 	})
+
+
+func modify_codex_page(page, params):
+	page.get_node("BGColor").modulate = Color(1, 0, 0.937255)

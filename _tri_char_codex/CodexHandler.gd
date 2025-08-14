@@ -20,9 +20,6 @@ const CODEX_SETTINGS_SAVE_PATH = "user://cloud/codex_settings.json"
 
 onready var BlankCodexScene = load("res://_tri_char_codex/CodexPage.tscn")
 
-var page
-
-
 func _init():
 	var user_dir : Directory = Directory.new()
 	user_dir.open("user://")
@@ -392,7 +389,7 @@ func __generate_from_cache(char_path : String):
 	page_node.update_achievements(achievement_data)
 	if char_has_options(char_path):
 		page_node.setup_options(generate_options_node(char_path), load_all_char_options(char_path))
-	page = page_node
+	__page_editor(page_node, char_path)
 	return page_node
 
 
@@ -840,14 +837,22 @@ func __on_game_forfeit(loser, game):
 
 
 
-class PageInfo extends Reference:
-	var BGColor = Color("141414")
-	
-	func set_bg_color(color : String):
-		var Box = StyleBoxFlat.new()
-		Box.bg_color = Color(color)
-		#.add_theme_stylebox_override
-		pass
+#class PageInfo extends Reference:
+#
+#	var BGColor = Color("141414")
+#
+#	func _init(char_path : String):
+#		self.char_path = char_path
+#
+#	func set_background(color = null, tex = null):
+#		if tex == null:
+#			var Box = StyleBoxFlat.new()
+#			Box.bg_color = Color(color)
+#		else:
+#			var Box = StyleBoxTexture.new()
+#			Box.texture = tex
+#		#.add_theme_stylebox_override
+#		pass
 
 
 
@@ -2061,7 +2066,7 @@ class CodexAchievementList extends Reference:
 				return tex
 		return null
 
-func __page_editor(char_path : String):
+func __page_editor(page, char_path : String):
 	var override = __attempt_load_codex_script(char_path)
 	if override != null:
 		if override.has_method("modify_codex_page"):

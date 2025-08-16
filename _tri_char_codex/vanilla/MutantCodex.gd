@@ -106,3 +106,6 @@ func register(codex):
 #			"icon": child.button_texture,
 #			"unlocked": true,
 #		})
+
+func modify_codex_page(page, params):
+	page.get_node("BGColor").modulate = Color(0, 1, 0)

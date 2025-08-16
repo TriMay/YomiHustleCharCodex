@@ -35,6 +35,7 @@ func _init():
 	default_achievement_texture = load("res://ui/HUD/feint.png")
 
 
+
 func _ready():
 	for button in $"%Types".get_children():
 		button.connect("toggled", self, "_type_button_toggled", [button.name])
@@ -77,7 +78,9 @@ func _ready():
 				$"%AchievementsButton".set_pressed(true)
 				has_preffered_tab = true
 		var num_wins = CodexHandler.num_wins(char_path)
+		var num_loss = CodexHandler.num_losses(char_path)
 		$"%WinCount".text = str(num_wins) + " Win" + ("" if num_wins == 1 else "s")
+		$"%LossCount".text = str(num_loss) + " Loss" + ("" if num_loss == 1 else "es")
 	if not has_preffered_tab:
 		var store_tab = CodexHandler.preferred_tab
 		if $"%MoveListButton".visible: # TOOD blank movelist tab when has no tab
@@ -286,7 +289,8 @@ func _stance_option_changed(item, option_node : OptionButton):
 func _options_changed(options):
 	if not $"%TabOptions".visible:
 		return
-	print(options.get_data())
+	if OS.is_debug_build():
+		print(options.get_data())
 	var CodexHandler = get_node_or_null("/root/CharCodexLibrary")
 	if CodexHandler	!= null:
 		CodexHandler.save_all_char_options(char_path, options.get_data())
@@ -365,6 +369,12 @@ func handle_url_meta(meta):
 				if button.text == target:
 					button.set_pressed(true)
 					break
+		if parsed_meta.begins_with("type:"):
+			var target = parsed_meta.substr(5)
+			var button = $"%Types".get_node_or_null("%Types/" + target)
+			if button != null:
+				button.set_pressed(true)
+				$"%MoveListButton".set_pressed(true)
 
 
 func _state_button_toggled(toggled, state):
@@ -491,6 +501,13 @@ func _state_button_toggled(toggled, state):
 			$"%MoveStats".add_child(create_move_stat_panel("Set Stance To", move.change_stance))
 		if earliest_interrupt >= 0:
 			$"%MoveStats".add_child(create_move_stat_panel("IASA", earliest_interrupt + 1))
+		match move.air_type:
+			"Grounded": # Grounded
+				$"%MoveStats".add_child(create_move_stat_panel("Air Type", "Grounded"))
+			"Aerial": # Aerial
+				$"%MoveStats".add_child(create_move_stat_panel("Air Type", "Aerial"))
+			"Both": # Both
+				$"%MoveStats".add_child(create_move_stat_panel("Air Type", "Both"))
 		if move.super_req > 0:
 			$"%MoveStats".add_child(create_move_stat_panel("Super Req." if move.super_cost >= 0 and move.super_cost != move.super_req else "Super", move.super_req))
 		if move.super_cost >= 0 and move.super_cost != move.super_req:
@@ -557,6 +574,11 @@ func _state_button_toggled(toggled, state):
 			hitbox_info.set_vs_otg(hitbox.hits_otg)
 			hitbox_info.set_vs_dizzy(hitbox.hits_dizzy)
 			hitbox_info.set_vs_projectiles(hitbox.hits_projectiles)
+			hitbox_info.set_knockdown(hitbox.knockdown)
+			hitbox_info.set_knockdown_extends(hitbox.knockdown_extends_hitstun)
+			hitbox_info.set_hard_knockdown(hitbox.hard_knockdown)
+			hitbox_info.set_ground_bounce(hitbox.ground_bounce)
+			hitbox_info.set_air_ground_bounce(hitbox.air_ground_bounce)
 			
 			var in_combo_damage = hitbox.damage if hitbox.combo_damage == -1 else hitbox.combo_damage
 			var minimum_damage = hitbox.minimum_damage
@@ -660,8 +682,6 @@ func create_move_stat_panel(stat, value):
 		label.rect_min_size.x = MAX_LABEL_WIDTH
 		label.autowrap = true
 	return label
-
-
 
 # DEBUG SETTINGS
 func _on_debug_setting_changed(setting, value, first_set = false):

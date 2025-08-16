@@ -3,11 +3,13 @@
   "client_side": true,
   "description": "Documentation for mod devs: https://hustledocs.trimaydev.com/#/codex_mod/how_to_use",
   "friendly_name": "Character Codex Library",
-  "id": "does_this_do_anything",
+  "id": "12345",
   "link": "",
   "name": "tri_char_codex",
   "overwrites": false,
   "priority": -9,
-  "requires": [],
+  "requires": [
+
+  ],
   "version": "1.9.20.i - Win Count Update"
 }

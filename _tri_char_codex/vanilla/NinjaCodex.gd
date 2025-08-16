@@ -15,3 +15,6 @@ func setup_achievements(list):
 		"icon": "res://_tri_char_codex/images/ACH_STERNUM_EXPLODER.png",
 		"unlocked": Steam.getAchievement("ACH_STERNUM_EXPLODER")["achieved"]
 	})
+
+func modify_codex_page(page, params):
+	page.get_node("BGColor").modulate = Color(1, 0, 0)

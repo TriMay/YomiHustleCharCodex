@@ -15,3 +15,4 @@ func setup_achievements(list):
 		"icon": "res://_tri_char_codex/images/ACH_STERNUM_EXPLODER.png",
 		"unlocked": Steam.getAchievement("ACH_STERNUM_EXPLODER")["achieved"]
 	})
+

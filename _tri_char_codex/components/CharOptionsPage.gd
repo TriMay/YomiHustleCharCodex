@@ -85,13 +85,16 @@ func add_custom_scene(id:String, scene, default = null, params:Dictionary = {}):
 		return
 	var error = false
 	if not scene.has_method("set_value"):
-		printerr("CODEX CHAR OPTIONS ERROR: \"", id ,"\" scene missing required func set_value(value)")
+		if OS.is_debug_build():
+			printerr("CODEX CHAR OPTIONS ERROR: \"", id ,"\" scene missing required func set_value(value)")
 		error = true
 	if not scene.has_method("get_data"):
-		printerr("CODEX CHAR OPTIONS ERROR: \"", id ,"\" scene missing required func get_data()")
+		if OS.is_debug_build():
+			printerr("CODEX CHAR OPTIONS ERROR: \"", id ,"\" scene missing required func get_data()")
 		error = true
 	if not scene.has_signal("data_changed"):
-		printerr("CODEX CHAR OPTIONS ERROR: \"", id ,"\" scene missing required signal data_changed()")
+		if OS.is_debug_build():
+			printerr("CODEX CHAR OPTIONS ERROR: \"", id ,"\" scene missing required signal data_changed()")
 		error = true
 	if error:
 		scene.queue_free()
@@ -113,13 +116,15 @@ func add_custom_decor(scene, params:Dictionary = {}):
 func __parse_as_scene(scene):
 	if scene is String:
 		if not ResourceLoader.exists(scene):
-			printerr("CODEX CHAR OPTIONS ERROR: ", scene ," does not exist!")
+			if OS.is_debug_build():
+				printerr("CODEX CHAR OPTIONS ERROR: ", scene ," does not exist!")
 			return null
 		scene = load(scene)
 	if scene is PackedScene:
 		scene = scene.instance()
 	if not (scene is Node):
-		printerr("CODEX CHAR OPTIONS ERROR: scene is not a node!")
+		if OS.is_debug_build():
+			printerr("CODEX CHAR OPTIONS ERROR: scene is not a node!")
 		return null
 	return scene
 

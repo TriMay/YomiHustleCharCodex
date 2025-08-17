@@ -202,8 +202,7 @@ custom_constants/separation = 2
 
 [node name="SummaryButton" type="Button" parent="Margins/VBoxContainer/TabScroll/TabContainer"]
 unique_name_in_owner = true
-visible = false
-margin_right = 143.0
+margin_right = 95.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -213,7 +212,8 @@ text = "Summary"
 
 [node name="MoveListButton" type="Button" parent="Margins/VBoxContainer/TabScroll/TabContainer"]
 unique_name_in_owner = true
-margin_right = 144.0
+margin_left = 97.0
+margin_right = 192.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -223,7 +223,7 @@ text = "Move List"
 
 [node name="StatsButton" type="Button" parent="Margins/VBoxContainer/TabScroll/TabContainer"]
 unique_name_in_owner = true
-margin_left = 146.0
+margin_left = 194.0
 margin_right = 290.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
@@ -415,7 +415,7 @@ clip_text = true
 
 [node name="Variant1" type="Button" parent="Margins/VBoxContainer/ContentScroll/Content/TabMoveList/Variants"]
 visible = false
-margin_left = 33.0
+margin_left = 145.0
 margin_right = 290.0
 margin_bottom = 12.0
 size_flags_horizontal = 3
@@ -426,7 +426,7 @@ text = "Grounded"
 
 [node name="Variant2" type="Button" parent="Margins/VBoxContainer/ContentScroll/Content/TabMoveList/Variants"]
 visible = false
-margin_left = 43.0
+margin_left = 194.0
 margin_right = 290.0
 margin_bottom = 12.0
 size_flags_horizontal = 3
@@ -633,20 +633,59 @@ margin_left = -70.0
 margin_right = 70.0
 margin_bottom = 2.0
 
-[node name="WinCount" type="Label" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/IdleVBoxContainer/IdleContainer"]
+[node name="OnlyWinCount" type="Label" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/IdleVBoxContainer/IdleContainer"]
 unique_name_in_owner = true
+visible = false
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -93.0
-margin_top = -37.0
-margin_bottom = -19.0
-rect_scale = Vector2( 2, 2 )
+margin_left = -70.0
+margin_top = -44.0
+margin_right = 23.0
+margin_bottom = -15.0
+rect_scale = Vector2( 1.5, 1.5 )
 text = "69 Wins"
 align = 1
 valign = 1
 clip_text = true
+
+[node name="WinCount" type="Label" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/IdleVBoxContainer/IdleContainer"]
+unique_name_in_owner = true
+visible = false
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -70.0
+margin_top = -44.0
+margin_right = 23.0
+margin_bottom = -26.0
+rect_scale = Vector2( 1.5, 1.5 )
+text = "69 Wins"
+align = 1
+valign = 1
+clip_text = true
+
+[node name="LossCount" type="Label" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/IdleVBoxContainer/IdleContainer"]
+unique_name_in_owner = true
+visible = false
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -70.0
+margin_top = -27.0
+margin_right = 23.0
+margin_bottom = -9.0
+rect_scale = Vector2( 1.5, 1.5 )
+text = "69 Losses"
+align = 1
+valign = 1
+clip_text = true
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="StatsVBoxContainer" type="VBoxContainer" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats"]
 margin_left = 190.0

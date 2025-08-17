@@ -26,6 +26,8 @@ func _ready():
 	$"%Close".connect("pressed", self, "_close_clicked")
 	$"%Settings".connect("pressed", self, "_settings_clicked")
 	$"%CloseSettings".connect("pressed", self, "_close_settings")
+	$"%WinLossMode".connect("item_selected", self, "_win_loss_mode_selected")
+	$"%ChievoPopups".connect("toggled", self, "_chievo_popups_toggled")
 	$"%MisclickProtection".connect("toggled", self, "_misclick_prevent_toggled")
 	search_node.connect("text_changed", self, "_on_search_changed")
 	connect("visibility_changed", self, "_on_visibility_changed")
@@ -65,9 +67,17 @@ func _close_clicked():
 
 
 func _settings_clicked():
+	var win_loss_mode = win_loss_modes.find(CodexHandler.load_codex_setting("win_loss_stats"))
+	if win_loss_mode == -1:
+		win_loss_mode = 1
+	$"%WinLossMode".selected = win_loss_mode
+	$"%ChievoPopups".set_pressed_no_signal(CodexHandler.load_codex_setting("no_fun_mode"))
 	$"%MisclickProtection".set_pressed_no_signal(CodexHandler.load_codex_setting("misclick_prevent"))
 	$SettingsWindow.visible = not $SettingsWindow.visible
 	$SettingsCover.visible = $SettingsWindow.visible
+
+
+var win_loss_modes = ['hide', 'wins_only', 'show']
 
 
 func _close_settings():
@@ -75,8 +85,18 @@ func _close_settings():
 	$SettingsCover.visible = false
 
 
+func _win_loss_mode_selected(index):
+	print(win_loss_modes[index])
+	CodexHandler.save_codex_setting("win_loss_stats", win_loss_modes[index])
+
+
+func _chievo_popups_toggled(toggle):
+	CodexHandler.save_codex_setting("no_fun_mode", toggle)
+
+
 func _misclick_prevent_toggled(toggle):
 	CodexHandler.save_codex_setting("misclick_prevent", toggle)
+
 
 
 func _mainmenu_button_pressed():
@@ -160,7 +180,6 @@ func _on_char_button_toggled(toggled, char_path, char_index):
 				async_load_char_page({ "file":char_path, "index":char_index })
 
 
-
 func async_load_char_page(char_data):
 	currently_loading = true
 	var codex = CodexHandler
@@ -176,25 +195,14 @@ func async_load_char_page(char_data):
 
 
 func try_to_clean_thread():
-	# right so
-	# memory leaks
-	# they're bad right?
-	# but the stupid thing is
-	# I've been at this for 3 and a half hours
-	# and I can't figure out
-	### HOW THE HELL ###
-	# to get godot to
-	### NOT PERMANENTLY FREEZE ###
-	# while calling this on an unfinished thread
+	# this memory leaks if the thread is not alive
+	# because I could not figure out how to get godot to not freeze
+	# when trying to tell it to finish early.
 	
-	# the threads, they just don't work the way they're supposed to
+	# it just hangs forever...
 	
-	# so I'm checking if it's alive.
-	# if it's not alive, it works the way it's supposed to
-	# if it is: you get a thread leak and I don't care
-	
-	# if anyone is looking at this code who knows what I'm not doing right
-	# please message me
+	# if someone else knows why, please fix it
+	# if not, don't waste your time like I did 3 hours of mine
 	if load_thread is Thread:
 		if not load_thread.is_alive():
 			load_thread.wait_to_finish()
@@ -203,7 +211,6 @@ func try_to_clean_thread():
 
 func _exit_tree():
 	try_to_clean_thread()
-
 
 
 func _on_change_debug_setting(toggled, setting):

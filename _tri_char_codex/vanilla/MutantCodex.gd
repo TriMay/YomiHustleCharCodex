@@ -1,15 +1,19 @@
 extends Node
 
 
+# Mutant: The Tester of Codex Features
+
 
 func register(codex):
 	codex.set_subtitle("Who's a good boy?")
+	
+#	codex.moveset["Slash"].desc = "[url=type:Special|move:Pounce]Custom Move Description[/url]"
 #	codex.has_no_moveset = true
 #	codex.has_no_stats = true
-	#codex_data.set_summary("He's a ninja")
-	#codex_data.set_move_desc("Slash", "Custom Move Description")
-	#codex_data.set_move_desc("Chainsaw", "Custom Move Description")
-	#codex_data.set_move_desc("Silly Move", "Custom Move Description")
+#	codex_data.set_summary("He's a ninja")
+#	codex_data.set_move_desc("Slash", "Custom Move Description")
+#	codex_data.set_move_desc("Chainsaw", "Custom Move Description")
+#	codex_data.set_move_desc("Silly Move", "Custom Move Description")
 
 
 #func test(origin, unset):
@@ -106,3 +110,6 @@ func register(codex):
 #			"icon": child.button_texture,
 #			"unlocked": true,
 #		})
+
+#func modify_codex_page(page, params):
+#	page.get_node("BGColor").modulate = Color(0, 1, 0)

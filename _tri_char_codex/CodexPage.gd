@@ -105,8 +105,7 @@ func generate(codex_data):
 	$"%MoveListButton".visible = not codex_data.has_no_moveset
 	$"%StatsButton".visible = not codex_data.has_no_stats
 	$"%Summary".bbcode_text = codex_data.summary
-	if codex_data.summary != "":
-		$"%SummaryButton".visible = true
+	$"%SummaryButton".visible = (codex_data.summary != "")
 	$"%Banner".texture = codex_data.banner
 	$"%Banner".rect_position = codex_data.banner_offset
 	$"%Banner".rect_scale = codex_data.banner_scale

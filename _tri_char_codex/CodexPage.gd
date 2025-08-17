@@ -575,8 +575,8 @@ func _state_button_toggled(toggled, state):
 			hitbox_info.set_vs_dizzy(hitbox.hits_dizzy)
 			hitbox_info.set_vs_projectiles(hitbox.hits_projectiles)
 			hitbox_info.set_knockdown(hitbox.knockdown)
-			hitbox_info.set_knockdown_extends(hitbox.knockdown_extends_hitstun)
-			hitbox_info.set_hard_knockdown(hitbox.hard_knockdown)
+			hitbox_info.set_knockdown_extends(hitbox.knockdown_extends_hitstun and hitbox.knockdown)
+			hitbox_info.set_hard_knockdown(hitbox.hard_knockdown and hitbox.knockdown)
 			hitbox_info.set_ground_bounce(hitbox.ground_bounce)
 			hitbox_info.set_air_ground_bounce(hitbox.air_ground_bounce)
 			

@@ -860,23 +860,6 @@ func __on_game_forfeit(loser, game):
 
 
 
-#class PageInfo extends Reference:
-#
-#	var BGColor = Color("141414")
-#
-#	func _init(char_path : String):
-#		self.char_path = char_path
-#
-#	func set_background(color = null, tex = null):
-#		if tex == null:
-#			var Box = StyleBoxFlat.new()
-#			Box.bg_color = Color(color)
-#		else:
-#			var Box = StyleBoxTexture.new()
-#			Box.texture = tex
-#		#.add_theme_stylebox_override
-#		pass
-
 
 
 

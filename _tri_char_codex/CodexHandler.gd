@@ -18,6 +18,14 @@ const SAVE_DIR = "user://cloud/codex_char_saves"
 const LEGACY_SAVE_DIR = "user://codex_char_saves"
 const CODEX_SETTINGS_SAVE_PATH = "user://cloud/codex_settings.json"
 
+const DEFAULT_CODEX_SETTINGS = {
+	"win_lost_stats": "wins_only",
+	"no_fun_mode": false,
+	"misclick_prevent": false,
+	"wins": {},
+	"losses": {},
+}
+
 onready var BlankCodexScene = load("res://_tri_char_codex/CodexPage.tscn")
 
 func _init():
@@ -141,7 +149,7 @@ func save_codex_setting(key : String, value):
 
 
 func load_codex_setting(key : String):
-	return raw_load_char_data("_CODEX_", key)
+	return raw_load_char_data("_CODEX_", key, DEFAULT_CODEX_SETTINGS.get(key))
 
 
 func __attempt_load_char_instance(char_path):
@@ -486,9 +494,7 @@ func raw_reset_char_data(char_path : String):
 
 func get_new_char_data(char_path : String):
 	if char_path == "_CODEX_":
-		return {
-			"misclick_prevent": false
-		}
+		return DEFAULT_CODEX_SETTINGS.duplicate(true)
 	var new_save = null
 	var override = __attempt_load_codex_script(char_path)
 	if override != null:
@@ -827,9 +833,9 @@ func __on_game_won(winner, game):
 	if SteamLobby.SPECTATING:
 		return 
 	if winner == Network.player_id:
-		track_win(game.get_player(winner))
+		track_win(game.get_player(Network.player_id))
 	else:
-		track_loss(game.get_player(1 if winner == 2 else 2))
+		track_loss(game.get_player(Network.player_id))
 
 
 func __on_game_forfeit(loser, game):

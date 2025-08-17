@@ -260,6 +260,7 @@ custom_constants/margin_bottom = 0
 
 [node name="TabSummary" type="MarginContainer" parent="Margins/VBoxContainer/ContentScroll/Content"]
 unique_name_in_owner = true
+visible = false
 margin_top = 5.0
 margin_right = 290.0
 margin_bottom = 235.0
@@ -279,6 +280,7 @@ fit_content_height = true
 
 [node name="TabMoveList" type="VBoxContainer" parent="Margins/VBoxContainer/ContentScroll/Content"]
 unique_name_in_owner = true
+visible = false
 margin_top = 5.0
 margin_right = 290.0
 margin_bottom = 235.0
@@ -631,8 +633,26 @@ margin_left = -70.0
 margin_right = 70.0
 margin_bottom = 2.0
 
+[node name="OnlyWinCount" type="Label" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/IdleVBoxContainer/IdleContainer"]
+unique_name_in_owner = true
+visible = false
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -70.0
+margin_top = -44.0
+margin_right = 23.0
+margin_bottom = -15.0
+rect_scale = Vector2( 1.5, 1.5 )
+text = "69 Wins"
+align = 1
+valign = 1
+clip_text = true
+
 [node name="WinCount" type="Label" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/IdleVBoxContainer/IdleContainer"]
 unique_name_in_owner = true
+visible = false
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -649,6 +669,7 @@ clip_text = true
 
 [node name="LossCount" type="Label" parent="Margins/VBoxContainer/ContentScroll/Content/TabStats/IdleVBoxContainer/IdleContainer"]
 unique_name_in_owner = true
+visible = false
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5

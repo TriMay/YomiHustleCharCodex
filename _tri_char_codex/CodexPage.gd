@@ -53,6 +53,7 @@ func _ready():
 	$"%MoreInfoButton".connect("toggled", self, "_more_info_button_toggled")
 	$"%Summary".connect("meta_clicked", self, "_label_meta_clicked")
 	$"%MoveDesc".connect("meta_clicked", self, "_label_meta_clicked")
+	$"%TabStats".connect("visibility_changed", self, "_stats_visibility_changed")
 	$"%Types/Attack".set_pressed(true)
 	var has_preffered_tab = false
 	var CodexHandler = get_node_or_null("/root/CharCodexLibrary")
@@ -79,6 +80,7 @@ func _ready():
 				has_preffered_tab = true
 		var num_wins = CodexHandler.num_wins(char_path)
 		var num_loss = CodexHandler.num_losses(char_path)
+		$"%OnlyWinCount".text = str(num_wins) + " Win" + ("" if num_wins == 1 else "s")
 		$"%WinCount".text = str(num_wins) + " Win" + ("" if num_wins == 1 else "s")
 		$"%LossCount".text = str(num_loss) + " Loss" + ("" if num_loss == 1 else "es")
 	if not has_preffered_tab:
@@ -313,6 +315,15 @@ func update_visible_moves():
 			types_visible[move.type] = true
 	for type in $"%Types".get_children():
 		type.disabled = not types_visible[type.text]
+
+
+func _stats_visibility_changed():
+	var CodexHandler = get_node_or_null("/root/CharCodexLibrary")
+	if CodexHandler != null:
+		var mode = CodexHandler.load_codex_setting("win_loss_stats")
+		$"%OnlyWinCount".visible = (mode == "wins_only")
+		$"%WinCount".visible = (mode == "show")
+		$"%LossCount".visible = (mode == "show")
 
 
 func _label_meta_clicked(meta):

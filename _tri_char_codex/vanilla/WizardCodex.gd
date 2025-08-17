@@ -21,5 +21,3 @@ func setup_achievements(list):
 		"unlocked": Steam.getAchievement("ACH_SPARK_JUMP")["achieved"]
 	})
 
-func modify_codex_page(page, params):
-	page.get_node("BGColor").modulate = Color(0, 0, 1)

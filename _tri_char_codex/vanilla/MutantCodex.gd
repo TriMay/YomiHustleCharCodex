@@ -6,6 +6,8 @@ extends Node
 
 func register(codex):
 	codex.set_subtitle("Who's a good boy?")
+	
+#	codex.moveset["Slash"].desc = "[url=type:Special|move:Pounce]Custom Move Description[/url]"
 #	codex.has_no_moveset = true
 #	codex.has_no_stats = true
 #	codex_data.set_summary("He's a ninja")

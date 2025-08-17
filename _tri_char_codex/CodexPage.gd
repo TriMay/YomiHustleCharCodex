@@ -327,8 +327,11 @@ func _stats_visibility_changed():
 
 
 func _label_meta_clicked(meta):
-	handle_url_meta(meta)
-	# @TODO consider allowing combining url meta's for showing a specific stance and move in that stance
+	var stripped_meta : String = meta.lstrip(" ").rstrip(" ")
+	var meta_list = stripped_meta.split("|")
+	for parsed_meta in meta_list:
+		print(parsed_meta)
+		handle_url_meta(parsed_meta)
 
 
 func handle_url_meta(meta):

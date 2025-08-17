@@ -1573,12 +1573,12 @@ class CodexHitbox extends Reference:
 	var pushback : float = 0.0
 	var meter_gain_modifier : float = 0.0
 	var followup : String = ""
-	var marked_as_duplicate : bool = false
 	var knockdown : bool = false
 	var knockdown_extends_hitstun : bool = false
 	var hard_knockdown : bool = false
 	var ground_bounce : bool = false
 	var air_ground_bounce : bool = false
+	var marked_as_duplicate : bool = false
 	# @NOTE_TO_SELF: remember to add new variables to copy_to() and define()
 	
 	
@@ -1729,6 +1729,11 @@ class CodexHitbox extends Reference:
 			"pushback" : "float",
 			"meter_gain_modifier" : "float",
 			"followup" : "String",
+			"knockdown" : "bool",
+			"knockdown_extends_hitstun" : "bool",
+			"hard_knockdown" : "bool",
+			"ground_bounce" : "bool",
+			"air_ground_bounce" : "bool",
 		}
 		for key in expected_keys:
 			var type = expected_keys[key]

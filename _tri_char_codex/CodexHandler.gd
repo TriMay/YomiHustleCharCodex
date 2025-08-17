@@ -415,6 +415,23 @@ func __generate_error(text):
 
 
 
+
+func __page_editor(page, char_path : String):
+	var override = __attempt_load_codex_script(char_path)
+	if override != null:
+		if override.has_method("modify_codex_page"):
+			var codex_page = page
+			var params = {
+				"char_path": char_path,
+				"codex_library": self,
+			}
+			override.callv("modify_codex_page", [codex_page, params])
+		if override.has_method("queue_free"):
+			override.queue_free()
+
+
+
+
 # @TODO make sure dictionary and array values are deep duplicated
 
 func load_for_extra(fighter : Node, key = null, default = null, reload = false):
@@ -2071,21 +2088,6 @@ class CodexAchievementList extends Reference:
 			if tex is Texture:
 				return tex
 		return null
-
-func __page_editor(page, char_path : String):
-	var override = __attempt_load_codex_script(char_path)
-	if override != null:
-		if override.has_method("modify_codex_page"):
-			var codex_page = page
-			var char_instance = __attempt_load_char_instance(char_path)
-			var params = {
-				"char_path": char_path,
-				"character": char_instance,
-				"codex_library": self,
-			}
-			override.callv("modify_codex_page", [codex_page, params])
-		if override.has_method("queue_free"):
-			override.queue_free()
 
 
 class CodexAchievement extends Reference:

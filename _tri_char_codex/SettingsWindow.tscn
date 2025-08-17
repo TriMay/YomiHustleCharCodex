@@ -118,9 +118,9 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 60.0
-margin_top = 117.0
+margin_top = 90.0
 margin_right = 360.0
-margin_bottom = 217.0
+margin_bottom = 244.0
 rect_min_size = Vector2( 300, 100 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -128,7 +128,7 @@ static_ = true
 
 [node name="VBoxContainer" parent="SettingsWindow" index="0"]
 margin_right = 299.0
-margin_bottom = 99.0
+margin_bottom = 153.0
 
 [node name="TitleBar" parent="SettingsWindow/VBoxContainer" index="0"]
 margin_right = 298.0
@@ -139,12 +139,12 @@ text = "Settings"
 
 [node name="Contents" parent="SettingsWindow/VBoxContainer" index="1"]
 margin_right = 298.0
-margin_bottom = 98.0
+margin_bottom = 152.0
 custom_styles/panel = SubResource( 2 )
 
 [node name="MarginContainer" type="MarginContainer" parent="SettingsWindow/VBoxContainer/Contents" index="0"]
 margin_right = 298.0
-margin_bottom = 88.0
+margin_bottom = 142.0
 custom_constants/margin_right = 4
 custom_constants/margin_top = 8
 custom_constants/margin_left = 4
@@ -154,30 +154,57 @@ custom_constants/margin_bottom = 4
 margin_left = 4.0
 margin_top = 8.0
 margin_right = 294.0
-margin_bottom = 84.0
+margin_bottom = 138.0
 rect_pivot_offset = Vector2( 107, -95 )
 custom_constants/separation = 3
 
-[node name="MisclickProtection" type="CheckButton" parent="SettingsWindow/VBoxContainer/Contents/MarginContainer/VBoxContainer" index="0"]
+[node name="WinLossMode" type="OptionButton" parent="SettingsWindow/VBoxContainer/Contents/MarginContainer/VBoxContainer" index="0"]
 unique_name_in_owner = true
 margin_right = 290.0
-margin_bottom = 12.0
-size_flags_vertical = 4
-text = "Character Select Misclick Protection"
+margin_bottom = 18.0
+rect_min_size = Vector2( 0, 18 )
+size_flags_horizontal = 3
+text = "Hide Win/Loss in Character Stats"
+items = [ "Hide Win/Loss in Character Stats", null, false, 0, null, "Only Wins in Character Stats", null, false, 1, null, "Show Win/Loss in Character Stats", null, false, 2, null ]
+selected = 0
 
-[node name="Label" type="Label" parent="SettingsWindow/VBoxContainer/Contents/MarginContainer/VBoxContainer" index="1"]
-margin_top = 15.0
+[node name="ChievoPopups" type="CheckButton" parent="SettingsWindow/VBoxContainer/Contents/MarginContainer/VBoxContainer" index="1"]
+unique_name_in_owner = true
+margin_top = 21.0
 margin_right = 290.0
-margin_bottom = 54.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 0, 18 )
+size_flags_vertical = 4
+text = "Hide Achievement Popups"
+
+[node name="MisclickProtection" type="CheckButton" parent="SettingsWindow/VBoxContainer/Contents/MarginContainer/VBoxContainer" index="2"]
+unique_name_in_owner = true
+margin_top = 42.0
+margin_right = 290.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 18 )
+size_flags_vertical = 4
+text = "Character Select Misclick Prevention"
+
+[node name="Label" type="Label" parent="SettingsWindow/VBoxContainer/Contents/MarginContainer/VBoxContainer" index="3"]
+margin_top = 63.0
+margin_right = 290.0
+margin_bottom = 102.0
 custom_colors/font_color = Color( 0.627451, 0.627451, 0.627451, 1 )
 text = "> If on: ALL characters on the character select screen will display an additional \"Play\" confirmation button after the first click (including ones without an options menu)"
 autowrap = true
 
-[node name="CloseSettings" type="Button" parent="SettingsWindow/VBoxContainer/Contents/MarginContainer/VBoxContainer" index="2"]
-unique_name_in_owner = true
-margin_top = 60.0
+[node name="Space" type="Control" parent="SettingsWindow/VBoxContainer/Contents/MarginContainer/VBoxContainer" index="4"]
+margin_top = 105.0
 margin_right = 290.0
-margin_bottom = 76.0
+margin_bottom = 111.0
+rect_min_size = Vector2( 0, 6 )
+
+[node name="CloseSettings" type="Button" parent="SettingsWindow/VBoxContainer/Contents/MarginContainer/VBoxContainer" index="5"]
+unique_name_in_owner = true
+margin_top = 114.0
+margin_right = 290.0
+margin_bottom = 130.0
 rect_min_size = Vector2( 0, 16 )
 size_flags_vertical = 10
 text = "Close Settings"

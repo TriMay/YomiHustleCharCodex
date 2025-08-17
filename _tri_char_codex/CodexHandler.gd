@@ -18,8 +18,15 @@ const SAVE_DIR = "user://cloud/codex_char_saves"
 const LEGACY_SAVE_DIR = "user://codex_char_saves"
 const CODEX_SETTINGS_SAVE_PATH = "user://cloud/codex_settings.json"
 
-onready var BlankCodexScene = load("res://_tri_char_codex/CodexPage.tscn")
+const DEFAULT_CODEX_SETTINGS = {
+	"win_lost_stats": "wins_only",
+	"no_fun_mode": false,
+	"misclick_prevent": false,
+	"wins": {},
+	"losses": {},
+}
 
+onready var BlankCodexScene = load("res://_tri_char_codex/CodexPage.tscn")
 
 func _init():
 	var user_dir : Directory = Directory.new()
@@ -142,7 +149,7 @@ func save_codex_setting(key : String, value):
 
 
 func load_codex_setting(key : String):
-	return raw_load_char_data("_CODEX_", key)
+	return raw_load_char_data("_CODEX_", key, DEFAULT_CODEX_SETTINGS.get(key))
 
 
 func __attempt_load_char_instance(char_path):
@@ -390,6 +397,7 @@ func __generate_from_cache(char_path : String):
 	page_node.update_achievements(achievement_data)
 	if char_has_options(char_path):
 		page_node.setup_options(generate_options_node(char_path), load_all_char_options(char_path))
+	__page_editor(page_node, char_path)
 	return page_node
 
 
@@ -404,6 +412,23 @@ func __generate_error(text):
 	error_label.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	error_label.autowrap = true
 	return error_label
+
+
+
+
+func __page_editor(page, char_path : String):
+	var override = __attempt_load_codex_script(char_path)
+	if override != null:
+		if override.has_method("modify_codex_page"):
+			var codex_page = page
+			var params = {
+				"char_path": char_path,
+				"codex_library": self,
+			}
+			override.callv("modify_codex_page", [codex_page, params])
+		if override.has_method("queue_free"):
+			override.queue_free()
+
 
 
 
@@ -475,7 +500,8 @@ func init_char_data(char_path : String):
 			if json_parse.result is Dictionary:
 				data = json_parse.result
 		else:
-			print(json_parse.error_string)
+			if OS.is_debug_build():
+				print(json_parse.error_string)
 	codex_save_data[char_path] = data if data is Dictionary else get_new_char_data(char_path)
 
 
@@ -485,9 +511,7 @@ func raw_reset_char_data(char_path : String):
 
 func get_new_char_data(char_path : String):
 	if char_path == "_CODEX_":
-		return {
-			"misclick_prevent": false
-		}
+		return DEFAULT_CODEX_SETTINGS.duplicate(true)
 	var new_save = null
 	var override = __attempt_load_codex_script(char_path)
 	if override != null:
@@ -758,6 +782,23 @@ func track_win(fighter):
 	all_wins[char_path] = count + 1
 	save_codex_setting("wins", all_wins)
 
+func track_loss(fighter):
+	var char_path = ""
+	if fighter is Node:
+			char_path = fighter.filename
+	elif fighter is String:
+		char_path = fighter
+	if char_path == "":
+		return
+	var all_losses = load_codex_setting("losses")
+	if not (all_losses is Dictionary):
+		all_losses = {}
+	var count = all_losses.get(char_path, 0)
+	if not (count is int or count is float):
+		count = 0
+	all_losses[char_path] = count + 1
+	save_codex_setting("losses", all_losses)
+
 
 func num_wins(fighter) -> int:
 	var char_path = ""
@@ -776,6 +817,22 @@ func num_wins(fighter) -> int:
 	return count
 
 
+func num_losses(fighter) -> int:
+	var char_path = ""
+	if fighter is Node:
+			char_path = fighter.filename
+	elif fighter is String:
+		char_path = fighter
+	if char_path == "":
+		return 0
+	var all_losses = load_codex_setting("losses")
+	if not (all_losses is Dictionary):
+		return 0
+	var count = all_losses.get(char_path, 0)
+	if not (count is int or count is float):
+		return 0
+	return count
+
 func __on_game_started():
 	var game = Global.current_game
 	if is_instance_valid(game):
@@ -793,13 +850,13 @@ func __on_game_won(winner, game):
 	if SteamLobby.SPECTATING:
 		return 
 	if winner == Network.player_id:
-		track_win(game.get_player(winner))
+		track_win(game.get_player(Network.player_id))
+	else:
+		track_loss(game.get_player(Network.player_id))
 
 
 func __on_game_forfeit(loser, game):
 	__on_game_won(2 if loser == 1 else 1, game)
-
-
 
 
 
@@ -840,7 +897,7 @@ class CodexData extends Reference:
 	func parse_fighter(char_instance : Node):
 		if "__" in char_instance.name:
 			title = char_instance.name.split("__", true, 1)[1]
-		else:			
+		else:
 			title = char_instance.name
 		if char_instance.get("character_portrait2") is Texture:
 			banner = char_instance.character_portrait2
@@ -883,11 +940,13 @@ class CodexData extends Reference:
 	func add_custom_scene_tab(tab_title : String, scene):
 		if scene is String:
 			if not ResourceLoader.exists(scene):
-				printerr("CODEX ERROR: failed to add tab ", tab_title,", ", scene ," does not exist!")
+				if OS.is_debug_build():
+					printerr("CODEX ERROR: failed to add tab ", tab_title,", ", scene ," does not exist!")
 				return null
 			scene = load(scene)
 		if not (scene is PackedScene):
-			printerr("CODEX ERROR: failed to add tab ", tab_title,", ", scene ," is not a scene!")
+			if OS.is_debug_build():
+				printerr("CODEX ERROR: failed to add tab ", tab_title,", ", scene ," is not a scene!")
 			return null
 		custom_tabs.append({
 			"title": tab_title,
@@ -1514,6 +1573,11 @@ class CodexHitbox extends Reference:
 	var pushback : float = 0.0
 	var meter_gain_modifier : float = 0.0
 	var followup : String = ""
+	var knockdown : bool = false
+	var knockdown_extends_hitstun : bool = false
+	var hard_knockdown : bool = false
+	var ground_bounce : bool = false
+	var air_ground_bounce : bool = false
 	var marked_as_duplicate : bool = false
 	# @NOTE_TO_SELF: remember to add new variables to copy_to() and define()
 	
@@ -1574,6 +1638,11 @@ class CodexHitbox extends Reference:
 		copy.meter_gain_modifier = meter_gain_modifier
 		copy.followup = followup
 		copy.marked_as_duplicate = marked_as_duplicate
+		copy.knockdown = knockdown
+		copy.knockdown_extends_hitstun = knockdown_extends_hitstun
+		copy.hard_knockdown = hard_knockdown
+		copy.ground_bounce = ground_bounce
+		copy.air_ground_bounce = air_ground_bounce
 	
 	
 	func parse_hitbox(hitbox):
@@ -1615,6 +1684,11 @@ class CodexHitbox extends Reference:
 		sdi_modifier = float(hitbox.sdi_modifier)
 		pushback = float(hitbox.pushback_x)
 		meter_gain_modifier = float(hitbox.meter_gain_modifier)
+		knockdown = hitbox.knockdown
+		knockdown_extends_hitstun = hitbox.knockdown_extends_hitstun
+		hard_knockdown = hitbox.hard_knockdown
+		ground_bounce = hitbox.ground_bounce
+		air_ground_bounce = hitbox.air_ground_bounce
 		followup = hitbox.followup_state if not hitbox is ThrowBox else hitbox.throw_state
 		# @TODO release data, if possible
 	
@@ -1655,6 +1729,11 @@ class CodexHitbox extends Reference:
 			"pushback" : "float",
 			"meter_gain_modifier" : "float",
 			"followup" : "String",
+			"knockdown" : "bool",
+			"knockdown_extends_hitstun" : "bool",
+			"hard_knockdown" : "bool",
+			"ground_bounce" : "bool",
+			"air_ground_bounce" : "bool",
 		}
 		for key in expected_keys:
 			var type = expected_keys[key]
@@ -1997,12 +2076,6 @@ class CodexAchievementList extends Reference:
 			if tex is Texture:
 				return tex
 		return null
-
-
-
-
-
-
 
 
 class CodexAchievement extends Reference:

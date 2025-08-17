@@ -113,7 +113,8 @@ func on_data_changed(options):
 
 
 func data_changed_deferred(options):
-	print(options.get_data())
+	if OS.is_debug_build():
+		print(options.get_data())
 	CodexHandler.save_all_char_options(char_path, options.get_data())
 
 

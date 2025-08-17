@@ -31,32 +31,57 @@ func toggle_more_info(toggle : bool):
 	show_more_info = toggle
 	$"%Dizzy".visible = show_more_info
 	$"%Projectiles".visible = show_more_info
+	$"%KDInfo".visible = show_more_info
+	$"%QuickKnockdown".visible = not show_more_info
+	$Header/HitsVS/VSeparator.visible = not show_more_info
 	emit_signal("more_info_toggled", toggle)
 
 
 func set_vs_grounded(hits : bool):
 	$"%Grounded".modulate = HITS_TRUE_COLOR if hits else HITS_FALSE_COLOR
-	$"%Grounded".hint_tooltip = ("Hits" if hits else "Misses") + " VS Grounded"
+	$"%Grounded".hint_tooltip = ("Hits" if hits else "Misses") + " VS Grounded "
 
 func set_vs_aerial(hits : bool):
 	$"%Aerial".modulate = HITS_TRUE_COLOR if hits else HITS_FALSE_COLOR
-	$"%Aerial".hint_tooltip = ("Hits" if hits else "Misses") + " VS Aerial"
+	$"%Aerial".hint_tooltip = ("Hits" if hits else "Misses") + " VS Aerial "
 
 func set_vs_standing(hits : bool):
 	$"%Standing".modulate = HITS_TRUE_COLOR if hits else HITS_FALSE_COLOR
-	$"%Standing".hint_tooltip = ("Hits" if hits else "Misses") + " VS Standing"
+	$"%Standing".hint_tooltip = ("Hits" if hits else "Misses") + " VS Standing "
 
 func set_vs_otg(hits : bool):
 	$"%OTG".modulate = HITS_TRUE_COLOR if hits else HITS_FALSE_COLOR
-	$"%OTG".hint_tooltip = ("Hits" if hits else "Misses") + " VS Knockdown"
+	$"%OTG".hint_tooltip = ("Hits" if hits else "Misses") + " VS Knockdown "
 
 func set_vs_dizzy(hits : bool):
 	$"%Dizzy".modulate = HITS_TRUE_COLOR if hits else HITS_FALSE_COLOR
-	$"%Dizzy".hint_tooltip = ("Hits" if hits else "Misses") + " VS Dizzy"
+	$"%Dizzy".hint_tooltip = ("Hits" if hits else "Misses") + " VS Dizzy "
 
 func set_vs_projectiles(hits : bool):
 	$"%Projectiles".modulate = HITS_TRUE_COLOR if hits else HITS_FALSE_COLOR
-	$"%Projectiles".hint_tooltip = ("Hits" if hits else "Misses") + " VS Projectiles"
+	$"%Projectiles".hint_tooltip = ("Hits" if hits else "Misses") + " VS Projectiles "
+
+func set_knockdown(hits : bool):
+	$"%Knockdown".modulate = HITS_TRUE_COLOR if hits else HITS_FALSE_COLOR
+	$"%Knockdown".hint_tooltip = ("Does" if hits else "Doesn't") + " Knockdown Opponent "
+	$"%QuickKnockdown".modulate = $"%Knockdown".modulate
+	$"%QuickKnockdown".hint_tooltip = $"%Knockdown".hint_tooltip
+
+func set_knockdown_extends(hits : bool):
+	$"%KnockdownExtend".modulate = HITS_TRUE_COLOR if hits else HITS_FALSE_COLOR
+	$"%KnockdownExtend".hint_tooltip = "Knockdown " + ("Extends" if hits else "Doesn't Extend") + " Hitstun"
+
+func set_hard_knockdown(hits : bool):
+	$"%HardKnockdown".modulate = HITS_TRUE_COLOR if hits else HITS_FALSE_COLOR
+	$"%HardKnockdown".hint_tooltip = ("Does" if hits else "Doesn't") + " Hard Knockdown Opponent"
+
+func set_ground_bounce(hits : bool):
+	$"%GroundBounce".modulate = HITS_TRUE_COLOR if hits else HITS_FALSE_COLOR
+	$"%GroundBounce".hint_tooltip = ("Does" if hits else "Doesn't") + " Ground Bounce Opponent"
+
+func set_air_ground_bounce(hits : bool):
+	$"%AirGroundBounce".modulate = HITS_TRUE_COLOR if hits else HITS_FALSE_COLOR
+	$"%AirGroundBounce".hint_tooltip = ("Does" if hits else "Doesn't") + " Air Ground bounce opponent"
 
 
 func add_stat_panel(stat, value, more_value = null, hidden_info = false):

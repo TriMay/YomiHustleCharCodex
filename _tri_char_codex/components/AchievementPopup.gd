@@ -11,6 +11,10 @@ func _ready():
 
 
 func on_achievement(achievement_list, achievement_id):
+	var codex = get_node_or_null("/root/CharCodexLibrary")
+	if is_instance_valid(codex):
+		if codex.load_codex_setting("no_fun_mode"):
+			return
 	if achievement_list.uses_default_fanfare:
 		$"%AchievementName".text = achievement_list.get_display_title(achievement_id)
 		var highlight = achievement_list.get_display_highlight(achievement_id)

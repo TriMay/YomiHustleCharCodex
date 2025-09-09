@@ -2,6 +2,8 @@ extends Node
 
 # TODO NEXT
 signal achievement_unlocked(achievement_list, achievement_id)
+signal char_won(char_path, amount)
+signal char_lost(char_path, amount)
 
 
 var codex_cache = {}
@@ -779,8 +781,10 @@ func track_win(fighter):
 	var count = all_wins.get(char_path, 0)
 	if not (count is int or count is float):
 		count = 0
-	all_wins[char_path] = count + 1
+	count += 1
+	all_wins[char_path] = count
 	save_codex_setting("wins", all_wins)
+	emit_signal("char_won", char_path, count)
 
 func track_loss(fighter):
 	var char_path = ""
@@ -796,8 +800,10 @@ func track_loss(fighter):
 	var count = all_losses.get(char_path, 0)
 	if not (count is int or count is float):
 		count = 0
-	all_losses[char_path] = count + 1
+	count += 1
+	all_losses[char_path] = count
 	save_codex_setting("losses", all_losses)
+	emit_signal("char_lost", char_path, count)
 
 
 func num_wins(fighter) -> int:
